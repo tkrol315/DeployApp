@@ -1,25 +1,24 @@
-﻿using DeployApp.Application.Services;
+﻿using DeployApp.Application.Repositories;
 using FluentValidation;
-using System.Security.Cryptography;
 
 namespace DeployApp.Application.Commands.Validators
 {
     public class CreateTagValidator : AbstractValidator<CreateTag>
     {
-        public CreateTagValidator(ITagReadService tagReadService)
+        public CreateTagValidator(ITagRepository tagRepository)
         {
             RuleFor(t => t.createTagDto.Name)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("Nazwa tagu nie może być pusta")
+                .WithMessage("Tag name cannot be empty")
                 .MustAsync(async (name, cancellationToken) =>
                 {
-                    return !await tagReadService.TagNameAlreadyExistsAsync(name);
-                }).WithMessage("Tag o takiej nazwie już istnieje");
+                    return !await tagRepository.TagWithNameAlreadyExistsAsync(name);
+                }).WithMessage("Tag with same name already exists");
             RuleFor(t => t.createTagDto.Description)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("Opis tagu nie może być pusty");
+                .WithMessage("Tag description cannot be empty");
         }
     }
 }

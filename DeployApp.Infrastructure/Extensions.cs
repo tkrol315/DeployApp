@@ -1,8 +1,6 @@
 ﻿using DeployApp.Application.Repositories;
-using DeployApp.Application.Services;
 using DeployApp.Infrastructure.EF.Contexts;
 using DeployApp.Infrastructure.Repositories;
-using DeployApp.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +14,6 @@ namespace DeployApp.Infrastructure
             var connectionString = configuration.GetSection("Postgres")["ConnectionString"]; 
             services.AddDbContext<DeployAppDbContext>(context => context.UseNpgsql(connectionString));
             services.AddScoped<ITagRepository, TagRepository>();
-            services.AddScoped<ITagReadService, TagReadService>();
             return services;
         }
     }

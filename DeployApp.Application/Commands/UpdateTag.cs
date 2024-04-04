@@ -2,6 +2,9 @@
 using MediatR;
 
 namespace DeployApp.Application.Commands
-{ 
-    public record CreateTag(CreateTagDto createTagDto) : IRequest<int>;
+{
+    public record UpdateTag(int id, UpdateTagDto updateTagDto) : IRequest;
+  
+
+
 }

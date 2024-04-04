@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using DeployApp.Application.Commands;
+using DeployApp.Application.Commands.Validators;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
