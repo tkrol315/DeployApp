@@ -1,4 +1,5 @@
-﻿using DeployApp.Application.Repositories;
+﻿using DeployApp.Application.Exceptions;
+using DeployApp.Application.Repositories;
 using DeployApp.Domain.Entities;
 using MediatR;
 
@@ -15,10 +16,13 @@ namespace DeployApp.Application.Commands.Handlers
 
         public async Task<int> Handle(CreateTag request, CancellationToken cancellationToken)
         {
+            if (await _tagRepository.TagWithNameAlreadyExistsAsync(request.createTagDto.Name))
+                throw new TagWithNameAlreadyExistsException(request.createTagDto.Name);
             var tag = new Tag()
             {
                 Name = request.createTagDto.Name,
                 Description = request.createTagDto.Description,
+                InstanceTags = new List<InstanceTag>()
             };
             return await _tagRepository.AddTagAsync(tag);
         }

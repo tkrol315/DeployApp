@@ -1,6 +1,6 @@
-﻿using DeployApp.Application.Commands;
-using DeployApp.Application.Commands.Validators;
+﻿using DeployApp.Application.Commands.Validators;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -11,7 +11,7 @@ namespace DeployApp.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
-            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddFluentValidationAutoValidation().AddValidatorsFromAssemblyContaining<CreateTagValidator>();
             return services;
         }
     }
