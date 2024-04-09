@@ -15,7 +15,8 @@ namespace DeployApp.Infrastructure.EF.Configuration
                 .HasColumnOrder(0);
             builder.Property(g => g.Name)
                 .HasColumnName("name_011")
-                .HasColumnOrder(1);
+                .HasColumnOrder(1)
+                .IsRequired();
             builder.Property(g => g.Description)
                 .HasColumnName("description_011")
                 .HasColumnOrder (2);

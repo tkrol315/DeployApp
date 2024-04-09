@@ -14,25 +14,21 @@ namespace DeployApp.Infrastructure.EF.Configuration
                 .HasColumnName("id_002")
                 .HasColumnOrder(0);
             builder.Property(v => v.ProjectId)
-                .IsRequired()
                 .HasColumnName("id_001_002")
                 .HasColumnOrder(1);
             builder.Property(v => v.Major)
-                .IsRequired()
                 .HasColumnName("major_002")
                 .HasColumnOrder(2);
             builder.Property(propertyExpression: v => v.Minor)
-                .IsRequired()
                 .HasColumnName("minor_002")
                 .HasColumnOrder(3);
             builder.Property(propertyExpression: v => v.Patch)
-                .IsRequired()
                 .HasColumnName("patch_002")
                 .HasColumnOrder(4);
             builder.Property(propertyExpression: v => v.Description)
-                .IsRequired()
                 .HasColumnName("description_002")
-                .HasColumnOrder(5);
+                .HasColumnOrder(5)
+                .IsRequired();
             builder.HasOne(v => v.Project)
                 .WithMany(p => p.ProjectVersions)
                 .HasForeignKey(v => v.ProjectId)

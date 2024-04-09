@@ -14,25 +14,24 @@ namespace DeployApp.Infrastructure.EF.Configuration
                 .HasColumnName("id_001")
                 .HasColumnOrder(0);
             builder.Property(p => p.Title)
-                .IsRequired()
                 .HasColumnName("title_001")
-             .HasColumnOrder(1);
+                .HasColumnOrder(1)
+                .IsRequired();
             builder.Property(p => p.Description)
-                .IsRequired()
                 .HasColumnName("description_001")
-             .HasColumnOrder(2);
+                .HasColumnOrder(2)
+                .IsRequired();
             builder.Property(p => p.IsActive)
-                .IsRequired()
                 .HasColumnName("is_active_001")
-                 .HasColumnOrder(3);
+                .HasColumnOrder(3);
             builder.Property(p => p.YtCode)
-                .IsRequired()
                 .HasColumnName("yt_code_001")
-                 .HasColumnOrder(4);
+                .HasColumnOrder(4)
+                .IsRequired();
             builder.Property(p => p.RepositoryUrl)
-                .IsRequired()
                 .HasColumnName("repository_url_001")
-                 .HasColumnOrder(5);
+                .HasColumnOrder(5)
+                .IsRequired();
             builder.HasMany(p => p.Instances)
                 .WithOne(i => i.Project)
                 .HasForeignKey(i => i.ProjectId)

@@ -14,11 +14,12 @@ namespace DeployApp.Infrastructure.EF.Configuration
                 .HasColumnName("id_010")
                 .HasColumnOrder(0);
             builder.Property(t => t.Name)
-                .IsRequired()
                 .HasColumnName("name_010")
-                .HasColumnOrder (1);
+                .HasColumnOrder(1)
+                .IsRequired();
+            builder.HasIndex(t => t.Name)
+                .IsUnique();
             builder.Property(t => t.Description)
-                .IsRequired()
                 .HasColumnName("description_010")
                 .HasColumnOrder (2);
         }

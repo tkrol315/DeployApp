@@ -18,7 +18,7 @@ namespace DeployApp.Infrastructure.EF.Migrations
                     id_011 = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name_011 = table.Column<string>(type: "text", nullable: false),
-                    description_011 = table.Column<string>(type: "text", nullable: false)
+                    description_011 = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -62,7 +62,7 @@ namespace DeployApp.Infrastructure.EF.Migrations
                     id_010 = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name_010 = table.Column<string>(type: "text", nullable: false),
-                    description_010 = table.Column<string>(type: "text", nullable: false)
+                    description_010 = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -204,6 +204,12 @@ namespace DeployApp.Infrastructure.EF.Migrations
                 name: "IX_project_version_002_id_001_002",
                 table: "project_version_002",
                 column: "id_001_002");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tag_010_name_010",
+                table: "tag_010",
+                column: "name_010",
+                unique: true);
         }
 
         /// <inheritdoc />

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DeployApp.Infrastructure.EF.Migrations
 {
     [DbContext(typeof(DeployAppDbContext))]
-    [Migration("20240403214721_Init")]
+    [Migration("20240409074643_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -36,7 +36,6 @@ namespace DeployApp.Infrastructure.EF.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("description_011")
                         .HasColumnOrder(2);
@@ -238,7 +237,6 @@ namespace DeployApp.Infrastructure.EF.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("description_010")
                         .HasColumnOrder(2);
@@ -250,6 +248,9 @@ namespace DeployApp.Infrastructure.EF.Migrations
                         .HasColumnOrder(1);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("tag_010", (string)null);
                 });
@@ -376,8 +377,7 @@ namespace DeployApp.Infrastructure.EF.Migrations
 
             modelBuilder.Entity("DeployApp.Domain.Entities.Type", b =>
                 {
-                    b.Navigation("Instance")
-                        .IsRequired();
+                    b.Navigation("Instance");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,11 +11,9 @@ namespace DeployApp.Infrastructure.EF.Configuration
             builder.ToTable("instance_tag_005");
             builder.HasKey(it => new { it.InstanceId, it.TagId });
             builder.Property(it => it.InstanceId)
-                .IsRequired()
                 .HasColumnName("id_004_005")
                 .HasColumnOrder(0);
             builder.Property(it => it.TagId)
-                .IsRequired()
                 .HasColumnName("id_010_005")
                 .HasColumnOrder(1);
             builder.HasOne(it => it.Instance)
