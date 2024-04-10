@@ -5,10 +5,10 @@ using DeployApp.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
     
 builder.Configuration.AddAppsettings();
+
 // Add services to the container.
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Configuration.AddJsonFile("LAPTOP-VHITBI8P_appsettings.json", optional: true, reloadOnChange: true);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

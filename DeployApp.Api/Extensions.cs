@@ -16,7 +16,7 @@ namespace DeployApp.Api
         }
         public static IConfigurationBuilder AddAppsettings(this IConfigurationBuilder configuration)
             => configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile("LAPTOP-VHITBI8P_appsettings.json", optional: true, reloadOnChange: true);
+                .AddJsonFile($"appsettings.{Environment.MachineName}.json", optional: true, reloadOnChange: true);
 
     }
 }

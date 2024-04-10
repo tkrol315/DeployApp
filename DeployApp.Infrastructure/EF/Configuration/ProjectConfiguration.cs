@@ -32,6 +32,8 @@ namespace DeployApp.Infrastructure.EF.Configuration
                 .HasColumnName("repository_url_001")
                 .HasColumnOrder(5)
                 .IsRequired();
+            builder.HasIndex(p => p.Title)
+                .IsUnique();
             builder.HasMany(p => p.Instances)
                 .WithOne(i => i.Project)
                 .HasForeignKey(i => i.ProjectId)

@@ -177,6 +177,9 @@ namespace DeployApp.Infrastructure.EF.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Title")
+                        .IsUnique();
+
                     b.ToTable("project_001", (string)null);
                 });
 

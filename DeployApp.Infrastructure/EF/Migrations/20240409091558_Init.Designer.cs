@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DeployApp.Infrastructure.EF.Migrations
 {
     [DbContext(typeof(DeployAppDbContext))]
-    [Migration("20240409074643_Init")]
+    [Migration("20240409091558_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -179,6 +179,9 @@ namespace DeployApp.Infrastructure.EF.Migrations
                         .HasColumnOrder(4);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Title")
+                        .IsUnique();
 
                     b.ToTable("project_001", (string)null);
                 });

@@ -201,6 +201,12 @@ namespace DeployApp.Infrastructure.EF.Migrations
                 column: "id_010_005");
 
             migrationBuilder.CreateIndex(
+                name: "IX_project_001_title_001",
+                table: "project_001",
+                column: "title_001",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_project_version_002_id_001_002",
                 table: "project_version_002",
                 column: "id_001_002");

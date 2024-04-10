@@ -14,6 +14,8 @@ namespace DeployApp.Infrastructure
             var connectionString = configuration.GetSection("Postgres")["ConnectionString"]; 
             services.AddDbContext<DeployAppDbContext>(context => context.UseNpgsql(connectionString));
             services.AddScoped<ITagRepository, TagRepository>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<IInstanceRepository, InstanceRepository>();
             return services;
         }
     }
