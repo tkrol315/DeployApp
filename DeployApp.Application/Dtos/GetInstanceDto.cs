@@ -8,11 +8,9 @@ namespace DeployApp.Application.Dtos
         string TypeDescription,
         string Key,
         string Secret,
-        ICollection<InstanceTag> InstanceTags,
-        ICollection<InstanceGroup> InstanceGroups,
-        int? Major,
-        int? Minor,
-        int? Patch
+        IEnumerable<GetTagDto> Tags,
+        IEnumerable<GetGroupDto> Groups,
+        GetProjectVersionDto? ProjectVersion
         );
 }
 

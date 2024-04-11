@@ -22,14 +22,16 @@ namespace DeployApp.Infrastructure.Repositories
             return instance.Id;
         }
 
-        //To change 
-        public IQueryable<Instance> GetAll(int projectId)
+        public IQueryable<Instance> GetAllAsIQueryable(int projectId)
         =>  _context.Instances
+            .Include(i => i.Project)
+            .Include(i => i.Type)
             .Include(i => i.ProjectVersion)
             .Include(i => i.InstanceGroups)
+                .ThenInclude(ig => ig.Group)
             .Include(i => i.InstanceTags)
+                .ThenInclude(it => it.Tag)
             .Where(i => i.ProjectId == projectId);
-        //==
 
     }
 }

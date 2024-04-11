@@ -6,6 +6,6 @@ namespace DeployApp.Application.Dtos
         string TypeDescription,
         string Key,
         string Secret,
-        int? ProjectVersionId = null
+        int? ProjectVersionId
         );
 }

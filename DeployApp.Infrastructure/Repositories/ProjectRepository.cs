@@ -2,7 +2,6 @@
 using DeployApp.Domain.Entities;
 using DeployApp.Infrastructure.EF.Contexts;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Common;
 
 namespace DeployApp.Infrastructure.Repositories
 {
@@ -28,6 +27,19 @@ namespace DeployApp.Infrastructure.Repositories
         public async Task<IEnumerable<Project>> GetProjectsAsync()
             => await _context.Projects.ToListAsync();
 
+        public async Task<Project> GetProjectWithInstancesAndProjectVersionsByIdAsync(int id)
+            => await _context.Projects
+                .Include(p => p.Instances)
+                    .ThenInclude(i => i.Type)
+                .Include(p => p.Instances)
+                    .ThenInclude(i => i.InstanceTags)
+                        .ThenInclude(it => it.Tag)
+                .Include(p => p.Instances)
+                .   ThenInclude(i => i.InstanceGroups)
+                        .ThenInclude(ig => ig.Group)
+                .Include(p => p.ProjectVersions)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
         public async Task<bool> ProjectWithIdAlredyExistsAsync(int id)
             => await _context.Projects.AnyAsync(p => p.Id == id);
 
@@ -42,7 +54,7 @@ namespace DeployApp.Infrastructure.Repositories
 
         public async Task UpdateProjectAsync(Project project)
         {
-           _context.Projects.Update(project);
+            _context.Projects.Update(project);
             await _context.SaveChangesAsync();
         }
     }

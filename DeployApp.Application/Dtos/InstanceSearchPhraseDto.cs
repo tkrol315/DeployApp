@@ -3,7 +3,8 @@
     public record InstanceSearchPhraseDto(
         string TypeDescription = null,
         string TagName = null,
-        string GroupName = null
+        string GroupName = null,
+        string ActualVersion = null
         );
    
 }

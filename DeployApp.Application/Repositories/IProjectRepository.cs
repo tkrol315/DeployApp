@@ -9,6 +9,7 @@ namespace DeployApp.Application.Repositories
         Task<int> CreateProjectAsync(Project project);
         Task<IEnumerable<Project>> GetProjectsAsync();
         Task<Project> GetProjectByIdAsync(int id);
+        Task<Project> GetProjectWithInstancesAndProjectVersionsByIdAsync(int id);
         Task RemoveProjectAsync(Project project);
         Task UpdateProjectAsync(Project project);
     }
