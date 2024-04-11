@@ -3,5 +3,5 @@ using MediatR;
 
 namespace DeployApp.Application.Queries
 {
-    public record GetInstancesAsDtos(int projectId, InstanceSearchPhraseDto searchPhrase) : IRequest<List<GetInstanceDto>>;
+    public record GetInstancesAsDtos(int projectId, InstanceFilterDto searchPhrase) : IRequest<List<GetInstanceDto>>;
 }

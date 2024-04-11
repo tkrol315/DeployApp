@@ -33,5 +33,10 @@ namespace DeployApp.Infrastructure.Repositories
                 .ThenInclude(it => it.Tag)
             .Where(i => i.ProjectId == projectId);
 
+        public async Task UpdateInstanceAsync(Instance instance)
+        {
+            _context.Instances.Update(instance);
+            await _context.SaveChangesAsync();
+        }
     }
 }

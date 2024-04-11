@@ -3,6 +3,10 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+#local machine config files
+DeployApp.Api/appsettings.DESKTOP-*.json
+DeployApp.Api/appsettings.LAPTOP-*.json
+
 # User-specific files
 *.rsuser
 *.suo

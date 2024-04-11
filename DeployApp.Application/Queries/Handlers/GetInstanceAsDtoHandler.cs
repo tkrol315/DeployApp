@@ -23,12 +23,14 @@ namespace DeployApp.Application.Queries.Handlers
                 ?? throw new InstanceNotFoundException(request.InstanceId);
             return new GetInstanceDto(
                 instance.Id,
-                instance.Project.Id,
+                instance.ProjectId,
                 instance.Type.Description,
                 instance.Key,
                 instance.Secret,
-                instance.InstanceTags.Select(it => new GetTagDto(it.Tag.Id, it.Tag.Name, it.Tag.Description)),
-                instance.InstanceGroups.Select(ig => new GetGroupDto(ig.Group.Id, ig.Group.Name, ig.Group.Description)),
+                instance.InstanceTags.Select(it => 
+                    new GetTagDto(it.Tag.Id, it.Tag.Name, it.Tag.Description)),
+                instance.InstanceGroups.Select(ig => 
+                    new GetGroupDto(ig.Group.Id, ig.Group.Name, ig.Group.Description)),
                 instance.ProjectVersion == null ? null : new GetProjectVersionDto(
                     instance.ProjectVersion.Major,
                     instance.ProjectVersion.Minor,

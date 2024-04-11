@@ -1,6 +1,7 @@
 ﻿using DeployApp.Application.Dtos;
 using DeployApp.Application.Repositories;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace DeployApp.Application.Queries.Handlers
 {
@@ -15,9 +16,9 @@ namespace DeployApp.Application.Queries.Handlers
 
         public async Task<List<GetProjectDto>> Handle(GetProjectsAsDtos request, CancellationToken cancellationToken)
         {
-            var projects = await _projectRepository.GetProjectsAsync();
-            var projectDtos = projects.Select(p => new GetProjectDto(p.Id, p.Title, p.Description, p.IsActive,
-                p.YtCode, p.RepositoryUrl)).ToList();
+            var projects = _projectRepository.GetProjectsAsIQueryable();
+            var projectDtos = await projects.Select(p => new GetProjectDto(p.Id, p.Title, p.Description, p.IsActive,
+                p.YtCode, p.RepositoryUrl)).ToListAsync();
             return projectDtos;
         }
     }

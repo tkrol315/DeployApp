@@ -1,5 +1,6 @@
 ﻿using DeployApp.Application.Dtos;
 using DeployApp.Application.Repositories;
+using Microsoft.EntityFrameworkCore;
 using MediatR;
 
 namespace DeployApp.Application.Queries.Handlers
@@ -15,8 +16,8 @@ namespace DeployApp.Application.Queries.Handlers
 
         public async Task<List<GetTagDto>> Handle(GetTagsAsDtos request, CancellationToken cancellationToken)
         {
-            var tags = await _tagRepository.GetTagsAsync();
-            return tags.Select(t => new GetTagDto(t.Id, t.Name, t.Description)).ToList();
+            var tags = _tagRepository.GetTagsAsIQueryable();
+            return await tags.Select(t => new GetTagDto(t.Id, t.Name, t.Description)).ToListAsync();
         }
     }
 }

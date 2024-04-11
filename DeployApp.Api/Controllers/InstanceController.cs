@@ -4,8 +4,6 @@ using DeployApp.Application.Queries;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Win32.SafeHandles;
-using System.ComponentModel.DataAnnotations;
 
 namespace DeployApp.Api.Controllers
 {
@@ -21,7 +19,7 @@ namespace DeployApp.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GetInstanceDto>>> GetAll([FromRoute] int project_id, [FromQuery] InstanceSearchPhraseDto searchPhrase) 
+        public async Task<ActionResult<List<GetInstanceDto>>> GetAll([FromRoute] int project_id, [FromQuery] InstanceFilterDto searchPhrase) 
         {
             var query = new GetInstancesAsDtos(project_id, searchPhrase);
             var dtos = await _mediator.Send(query);
@@ -46,6 +44,13 @@ namespace DeployApp.Api.Controllers
             }
             var id = await _mediator.Send(command);
             return Created();
+        }
+        [HttpPost("{instance_id}/tags/{tag_id}")]
+        public async Task<IActionResult> AssignTag([FromRoute] int project_id, [FromRoute] int instance_id, [FromRoute] int tag_id)
+        {
+            var command = new AssignTagToInstance(project_id, instance_id, tag_id);
+            await _mediator.Send(command);
+            return Ok();
         }
     }
 }

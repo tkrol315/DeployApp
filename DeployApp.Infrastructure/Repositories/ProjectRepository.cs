@@ -24,8 +24,8 @@ namespace DeployApp.Infrastructure.Repositories
         public async Task<Project> GetProjectByIdAsync(int id)
             => await _context.Projects.FirstOrDefaultAsync(p => p.Id == id);
 
-        public async Task<IEnumerable<Project>> GetProjectsAsync()
-            => await _context.Projects.ToListAsync();
+        public IQueryable<Project> GetProjectsAsIQueryable()
+            => _context.Projects;
 
         public async Task<Project> GetProjectWithInstancesAndProjectVersionsByIdAsync(int id)
             => await _context.Projects
@@ -57,5 +57,13 @@ namespace DeployApp.Infrastructure.Repositories
             _context.Projects.Update(project);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<Project> GetProjectWithInstancesByIdAsync(int id)
+            => await _context.Projects
+                .Include(p => p.Instances)
+                    .ThenInclude(i => i.InstanceTags)
+                        .ThenInclude(it => it.Tag)
+                .FirstOrDefaultAsync(p => p.Id == id);
+        
     }
 }

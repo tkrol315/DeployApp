@@ -1,6 +1,6 @@
 ﻿namespace DeployApp.Application.Dtos
 {
-    public record InstanceSearchPhraseDto(
+    public record InstanceFilterDto(
         string TypeDescription = null,
         string TagName = null,
         string GroupName = null,
