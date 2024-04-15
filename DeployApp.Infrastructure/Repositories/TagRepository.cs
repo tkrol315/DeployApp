@@ -22,6 +22,9 @@ namespace DeployApp.Infrastructure.Repositories
         public Task<Tag> GetTagByIdAsync(int id)
             => _context.Tags.FirstOrDefaultAsync(t => t.Id == id);
 
+        public async Task<Tag> GetTagByNameAsync(string name)
+            => await _context.Tags.FirstOrDefaultAsync(t => t.Name == name);
+
         public IQueryable<Tag> GetTagsAsIQueryable()
             => _context.Tags;
 

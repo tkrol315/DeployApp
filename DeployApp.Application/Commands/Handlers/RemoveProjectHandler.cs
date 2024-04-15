@@ -15,8 +15,8 @@ namespace DeployApp.Application.Commands.Handlers
 
         public async Task Handle(RemoveProject request, CancellationToken cancellationToken)
         {
-            var project = await _projectRepository.GetProjectByIdAsync(request.id)
-                ?? throw new ProjectNotFoundException(request.id);
+            var project = await _projectRepository.GetProjectByIdAsync(request.project_id)
+                ?? throw new ProjectNotFoundException(request.project_id);
             await _projectRepository.RemoveProjectAsync(project);
         }
     }

@@ -15,8 +15,8 @@ namespace DeployApp.Application.Commands.Handlers
 
         public async Task Handle(UpdateTag request, CancellationToken cancellationToken)
         {
-            var tag = await _tagRepository.GetTagByIdAsync(request.id)
-                ?? throw new TagNotFoundException(request.id);
+            var tag = await _tagRepository.GetTagByIdAsync(request.tag_id)
+                ?? throw new TagNotFoundException(request.tag_id);
 
             if (tag.Name != request.updateTagDto.Name)
                 if (await _tagRepository.TagWithNameAlreadyExistsAsync(request.updateTagDto.Name))

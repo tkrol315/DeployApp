@@ -1,20 +1,16 @@
-﻿using FluentValidation;
+﻿using DeployApp.Application.Dtos;
+using FluentValidation;
 
 namespace DeployApp.Application.Commands.Validators
 {
-    public class UpdateTagValidator : AbstractValidator<UpdateTag>
+    public class UpdateTagValidator : AbstractValidator<UpdateTagDto>
     {
         public UpdateTagValidator()
         {
-            RuleFor(t => t.updateTagDto.Name)
+            RuleFor(t => t.Name)
                  .NotNull()
                 .NotEmpty()
-                .WithMessage("Tag Name cannot be empty");
-            RuleFor(t => t.updateTagDto.Description)
-                .NotNull()
-                .NotEmpty()
-                .WithMessage("Tag description cannot be empty");
-            
+                .WithMessage("Tag Name cannot be empty"); 
         }
     }
 }

@@ -16,8 +16,8 @@ namespace DeployApp.Application.Queries.Handlers
 
         public async Task<GetTagDto> Handle(GetTagAsDto request, CancellationToken cancellationToken)
         {
-            var tag = await _tagRepository.GetTagByIdAsync(request.id)
-                ?? throw new TagNotFoundException(request.id);
+            var tag = await _tagRepository.GetTagByIdAsync(request.tag_id)
+                ?? throw new TagNotFoundException(request.tag_id);
             return new GetTagDto(tag.Id,tag.Name,tag.Description);
         }
     }

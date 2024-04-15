@@ -3,6 +3,6 @@ using MediatR;
 
 namespace DeployApp.Application.Queries
 {
-    public record GetTagAsDto(int id) : IRequest<GetTagDto>;
+    public record GetTagAsDto(int tag_id) : IRequest<GetTagDto>;
    
 }

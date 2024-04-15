@@ -6,9 +6,10 @@ namespace DeployApp.Application.Repositories
     {
         Task<int> AddTagAsync(Tag tag);
         Task<Tag> GetTagByIdAsync(int id);
+        Task<Tag> GetTagByNameAsync(string name);
         IQueryable<Tag> GetTagsAsIQueryable();
         Task<bool> TagWithNameAlreadyExistsAsync(string name);
-        Task <bool> TagExistsByIdAsync(int id);
+        Task<bool> TagExistsByIdAsync(int id);
         Task RemoveTagAsync(Tag tag);
         Task UpdateTagAsync(Tag tag);
     }

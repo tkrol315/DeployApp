@@ -3,6 +3,6 @@ using MediatR;
 
 namespace DeployApp.Application.Commands
 {
-    public record UpdateProject(int id, UpdateProjectDto dto) : IRequest;
+    public record UpdateProject(int project_id, UpdateProjectDto dto) : IRequest;
   
 }

@@ -15,8 +15,8 @@ namespace DeployApp.Application.Commands.Handlers
 
         public async Task Handle(RemoveTag request, CancellationToken cancellationToken)
         {
-            var tag = await _tagRepository.GetTagByIdAsync(request.id)
-                ?? throw new TagNotFoundException(request.id);
+            var tag = await _tagRepository.GetTagByIdAsync(request.tag_id)
+                ?? throw new TagNotFoundException(request.tag_id);
             await _tagRepository.RemoveTagAsync(tag);
         }
     }

@@ -11,11 +11,6 @@ namespace DeployApp.Application.Commands.Validators
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Tag name cannot be empty");
-             
-            RuleFor(t => t.createTagDto.Description)
-                .NotNull()
-                .NotEmpty()
-                .WithMessage("Tag description cannot be empty");
         }
     }
 }

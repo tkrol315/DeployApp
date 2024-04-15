@@ -1,7 +1,6 @@
 ﻿using DeployApp.Application.Dtos;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using FluentValidation;
 using DeployApp.Application.Commands;
 using DeployApp.Application.Queries;
 
@@ -24,7 +23,7 @@ namespace DeployApp.Api.Controllers
             return Ok(projects);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{project_id}")]
         public async Task<ActionResult<GetTagDto>> Get([FromRoute] GetProjectAsDto query)
         {
             var project = await _mediator.Send(query);
@@ -32,33 +31,23 @@ namespace DeployApp.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProject([FromBody] CreateProject command, IValidator<CreateProject> validator)
+        public async Task<IActionResult> CreateProject([FromBody] CreateProject command)
         {
-            var result = await validator.ValidateAsync(command);
-            if (!result.IsValid)
-            {
-                return BadRequest(result.Errors);
-            }
             var id = await _mediator.Send(command);
-            return CreatedAtAction(nameof(Get), new { id = id }, null);
+            return CreatedAtAction(nameof(Get), new { project_id = id }, null);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{project_id}")]
         public async Task<IActionResult> RemoveProject([FromRoute] RemoveProject command)
         {
             await _mediator.Send(command);
             return NoContent();
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProject([FromRoute] int id, [FromBody] UpdateProjectDto dto, IValidator<UpdateProject> validator)
+        [HttpPut("{project_id}")]
+        public async Task<IActionResult> UpdateProject([FromRoute] int project_id, [FromBody] UpdateProjectDto dto)
         {
-            var command = new UpdateProject(id, dto);   
-            var result = await validator.ValidateAsync(command);
-            if (!result.IsValid)
-            {
-                return BadRequest(result.Errors);
-            }
+            var command = new UpdateProject(project_id, dto);   
             await _mediator.Send(command);
             return Ok();
         }

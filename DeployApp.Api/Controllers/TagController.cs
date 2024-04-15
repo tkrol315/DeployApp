@@ -1,7 +1,6 @@
 ﻿using DeployApp.Application.Commands;
 using DeployApp.Application.Dtos;
 using DeployApp.Application.Queries;
-using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +16,7 @@ namespace DeployApp.Api.Controllers
         {
             _mediator = mediator;
         }
-        [HttpGet("{id}")]
+        [HttpGet("{tag_id}")]
         public async Task<ActionResult<GetTagDto>> Get([FromRoute] GetTagAsDto query)
         {
             var tag = await _mediator.Send(query);
@@ -31,32 +30,22 @@ namespace DeployApp.Api.Controllers
             
         }
         [HttpPost]
-        public async Task<IActionResult> CreateTag([FromBody] CreateTag command, IValidator<CreateTag> validator)
+        public async Task<IActionResult> CreateTag([FromBody] CreateTag command)
         {
-            var result = await validator.ValidateAsync(command);
-            if(!result.IsValid)
-            {
-                return BadRequest(result.Errors);
-            }
             var id = await _mediator.Send(command);
-            return CreatedAtAction(nameof(Get),new { id =id},null);
+            return CreatedAtAction(nameof(Get),new { tag_id =id},null);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{tag_id}")]
         public async Task<IActionResult> RemoveTag([FromRoute] RemoveTag command)
         {
             await _mediator.Send(command);
             return NoContent();
         }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateTag([FromRoute] int id, [FromBody] UpdateTagDto dto, IValidator<UpdateTag> validator)
+        [HttpPut("{tag_id}")]
+        public async Task<IActionResult> UpdateTag([FromRoute] int tag_id, [FromBody] UpdateTagDto dto)
         {
-            var command = new UpdateTag(id, dto);
-            var result = await validator.ValidateAsync(command);
-            if (!result.IsValid)
-            {
-                return BadRequest(result.Errors);
-            }
+            var command = new UpdateTag(tag_id, dto);
             await _mediator.Send(command);
             return Ok();
         }

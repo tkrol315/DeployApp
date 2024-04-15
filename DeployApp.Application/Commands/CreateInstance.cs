@@ -3,5 +3,5 @@ using MediatR;
 
 namespace DeployApp.Application.Commands
 {
-    public record CreateInstance(int projectId, CreateInstanceDto dto) : IRequest<int>;
+    public record CreateInstance(int project_id, CreateInstanceDto dto) : IRequest<int>;
 }

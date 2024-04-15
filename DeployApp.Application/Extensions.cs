@@ -11,7 +11,8 @@ namespace DeployApp.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
-            services.AddFluentValidationAutoValidation().AddValidatorsFromAssemblyContaining<CreateTagValidator>();
+            services.AddFluentValidationAutoValidation()
+                .AddValidatorsFromAssemblyContaining<CreateTagValidator>();
             return services;
         }
     }

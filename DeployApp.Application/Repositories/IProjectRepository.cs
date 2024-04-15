@@ -10,7 +10,8 @@ namespace DeployApp.Application.Repositories
         IQueryable<Project> GetProjectsAsIQueryable();
         Task<Project> GetProjectByIdAsync(int id);
         Task<Project> GetProjectWithInstancesAndProjectVersionsByIdAsync(int id);
-        Task<Project> GetProjectWithInstancesByIdAsync(int id);
+        Task<Project> GetProjectWithInstancesAndTagsByIdAsync(int id);
+        Task<Project> GetProjectWithInstancesAndGroupsByIdAsync(int id);
         Task RemoveProjectAsync(Project project);
         Task UpdateProjectAsync(Project project);
     }

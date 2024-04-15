@@ -2,7 +2,6 @@
 using DeployApp.Application.Exceptions;
 using DeployApp.Application.Repositories;
 using MediatR;
-using Microsoft.AspNetCore.Components.Forms;
 
 namespace DeployApp.Application.Queries.Handlers
 {
@@ -17,10 +16,10 @@ namespace DeployApp.Application.Queries.Handlers
 
         public async Task<GetInstanceDto> Handle(GetInstanceAsDto request, CancellationToken cancellationToken)
         {
-            var project = await _projectRepository.GetProjectWithInstancesAndProjectVersionsByIdAsync(request.ProjectId)
-                ?? throw new ProjectNotFoundException(request.ProjectId);
-            var instance = project.Instances.FirstOrDefault(i => i.Id == request.InstanceId)
-                ?? throw new InstanceNotFoundException(request.InstanceId);
+            var project = await _projectRepository.GetProjectWithInstancesAndProjectVersionsByIdAsync(request.project_id)
+                ?? throw new ProjectNotFoundException(request.project_id);
+            var instance = project.Instances.FirstOrDefault(i => i.Id == request.instance_id)
+                ?? throw new InstanceNotFoundException(request.instance_id);
             return new GetInstanceDto(
                 instance.Id,
                 instance.ProjectId,

@@ -16,8 +16,8 @@ namespace DeployApp.Application.Queries.Handlers
 
         public async Task<GetProjectDto> Handle(GetProjectAsDto request, CancellationToken cancellationToken)
         {
-            var p = await _projectRepository.GetProjectByIdAsync(request.id)
-                ?? throw new ProjectNotFoundException(request.id);
+            var p = await _projectRepository.GetProjectByIdAsync(request.project_id)
+                ?? throw new ProjectNotFoundException(request.project_id);
             return new GetProjectDto(p.Id, p.Title, p.Description, p.IsActive, p.YtCode,
                 p.RepositoryUrl);
         }

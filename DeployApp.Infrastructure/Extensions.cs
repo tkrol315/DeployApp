@@ -16,6 +16,7 @@ namespace DeployApp.Infrastructure
             services.AddScoped<ITagRepository, TagRepository>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IInstanceRepository, InstanceRepository>();
+            services.AddScoped<IGroupRepository, GroupRepository>();
             return services;
         }
     }

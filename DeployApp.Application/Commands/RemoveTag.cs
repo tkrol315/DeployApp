@@ -2,6 +2,6 @@
 
 namespace DeployApp.Application.Commands
 {
-    public record RemoveTag(int id) : IRequest;
+    public record RemoveTag(int tag_id) : IRequest;
     
 }

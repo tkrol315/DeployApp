@@ -3,8 +3,5 @@ using MediatR;
 
 namespace DeployApp.Application.Commands
 {
-    public record UpdateTag(int tag_id, UpdateTagDto updateTagDto) : IRequest;
-  
-
-
+    public record UpdateGroup(int group_id, UpdateGroupDto dto) : IRequest;
 }

@@ -58,12 +58,18 @@ namespace DeployApp.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Project> GetProjectWithInstancesByIdAsync(int id)
+        public async Task<Project> GetProjectWithInstancesAndTagsByIdAsync(int id)
             => await _context.Projects
                 .Include(p => p.Instances)
                     .ThenInclude(i => i.InstanceTags)
                         .ThenInclude(it => it.Tag)
                 .FirstOrDefaultAsync(p => p.Id == id);
-        
+
+        public async Task<Project> GetProjectWithInstancesAndGroupsByIdAsync(int id)
+            => await _context.Projects
+                .Include(p => p.Instances)
+                    .ThenInclude(i => i.InstanceGroups)
+                        .ThenInclude(ig => ig.Group)
+                .FirstOrDefaultAsync(p => p.Id == id);
     }
 }

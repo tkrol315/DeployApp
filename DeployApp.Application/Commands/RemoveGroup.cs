@@ -2,5 +2,6 @@
 
 namespace DeployApp.Application.Commands
 {
-    public record RemoveProject(int project_id) : IRequest;
+    public record RemoveGroup(int group_id) : IRequest;
+    
 }

@@ -3,5 +3,5 @@ using MediatR;
 
 namespace DeployApp.Application.Queries
 {
-    public record GetProjectAsDto(int id) : IRequest<GetProjectDto>;
+    public record GetProjectAsDto(int project_id) : IRequest<GetProjectDto>;
 }
