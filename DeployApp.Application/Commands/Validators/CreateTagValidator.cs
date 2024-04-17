@@ -1,5 +1,4 @@
-﻿using DeployApp.Application.Repositories;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace DeployApp.Application.Commands.Validators
 {
@@ -8,7 +7,6 @@ namespace DeployApp.Application.Commands.Validators
         public CreateTagValidator()
         {
             RuleFor(t => t.createTagDto.Name)
-                .NotNull()
                 .NotEmpty()
                 .WithMessage("Tag name cannot be empty");
         }

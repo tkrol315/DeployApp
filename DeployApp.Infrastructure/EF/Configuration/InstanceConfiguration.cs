@@ -19,21 +19,20 @@ namespace DeployApp.Infrastructure.EF.Configuration
             builder.Property(i => i.TypeId)
                 .HasColumnName("id_003_004")
                 .HasColumnOrder(2);
+            builder.Property(i => i.Name)
+                .HasColumnName("name_004")
+                .HasColumnOrder(3);
             builder.Property(i => i.Key)
                 .HasColumnName("key_004")
-                .HasColumnOrder(3)
+                .HasColumnOrder(4)
                 .IsRequired();
             builder.Property(i => i.Secret)
                 .HasColumnName("secret_004")
-                .HasColumnOrder(4)
+                .HasColumnOrder(5)
                 .IsRequired();
             builder.Property(i => i.ProjectVersionId)
                 .HasColumnName("id_002_actual_004")
-                .HasColumnOrder(5);
-            builder.HasOne(i => i.Project)
-                .WithMany(p => p.Instances)
-                .HasForeignKey(i => i.ProjectId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasColumnOrder(6);
             builder.HasOne(i => i.Type)
                 .WithOne(t => t.Instance)
                 .HasForeignKey<Instance>(i => i.TypeId)

@@ -7,8 +7,7 @@ namespace DeployApp.Application.Commands.Validators
     {
         public AssignTagValidator()
         {
-            RuleFor(a => a.TagName)
-                .NotNull()
+            RuleFor(a => a.Name)
                 .NotEmpty()
                 .WithMessage("TagName cannot be empty");
         }

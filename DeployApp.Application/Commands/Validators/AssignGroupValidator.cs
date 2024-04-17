@@ -7,8 +7,7 @@ namespace DeployApp.Application.Commands.Validators
     {
         public AssignGroupValidator()
         {
-            RuleFor(a => a.GroupName)
-                .NotNull()
+            RuleFor(a => a.Name)
                 .NotEmpty()
                 .WithMessage("GroupName cannot be empty");
         }

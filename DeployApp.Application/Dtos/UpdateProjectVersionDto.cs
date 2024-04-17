@@ -1,8 +1,7 @@
 ﻿namespace DeployApp.Application.Dtos
 {
-    public record AssignGroupDto
-        (
-        string Name,
+    public record UpdateProjectVersionDto(
+        string VersionString,
         string Description
         );
 }

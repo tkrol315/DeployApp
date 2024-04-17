@@ -6,6 +6,7 @@ namespace DeployApp.Application.Dtos
         int Id,
         int ProjectId,
         string TypeDescription,
+        string Name,
         string Key,
         string Secret,
         IEnumerable<GetTagDto> Tags,

@@ -26,7 +26,6 @@ namespace DeployApp.Infrastructure.Repositories
 
         public IQueryable<Project> GetProjectsAsIQueryable()
             => _context.Projects;
-
         public async Task<Project> GetProjectWithInstancesAndProjectVersionsByIdAsync(int id)
             => await _context.Projects
                 .Include(p => p.Instances)
@@ -40,7 +39,7 @@ namespace DeployApp.Infrastructure.Repositories
                 .Include(p => p.ProjectVersions)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
-        public async Task<bool> ProjectWithIdAlredyExistsAsync(int id)
+        public async Task<bool> ProjectWithIdAlreadyExistsAsync(int id)
             => await _context.Projects.AnyAsync(p => p.Id == id);
 
         public async Task<bool> ProjectWithTitleAlreadyExistsAsync(string title)
@@ -71,5 +70,15 @@ namespace DeployApp.Infrastructure.Repositories
                     .ThenInclude(i => i.InstanceGroups)
                         .ThenInclude(ig => ig.Group)
                 .FirstOrDefaultAsync(p => p.Id == id);
+
+        public async Task<Project> GetProjectWithInstancesByIdAsync(int id)
+            => await _context.Projects
+            .Include(p => p.Instances)
+            .FirstOrDefaultAsync(p => p.Id == id);
+
+        public async Task<Project> GetProjectWithProjectVersionsByIdAsync(int id)
+            => await _context.Projects
+            .Include(p => p.ProjectVersions.AsQueryable())
+            .FirstOrDefaultAsync(p => p.Id == id);
     }
 }

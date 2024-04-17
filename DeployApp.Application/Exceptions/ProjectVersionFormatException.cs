@@ -1,6 +1,6 @@
 ﻿using DeployApp.Application.Abstractions;
 
-namespace DeployApp.Application.Queries.Handlers
+namespace DeployApp.Application.Exceptions
 {
     public class ProjectVersionFormatException : DeployAppException
     {

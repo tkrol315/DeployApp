@@ -27,7 +27,7 @@ namespace DeployApp.Application.Queries.Handlers
                     i.InstanceGroups.Any(ig => ig.Group.Name == request.searchPhrase.GroupName));
             if (!string.IsNullOrEmpty(request.searchPhrase.TypeDescription))
                 instances = instances.Where(i => 
-                    i.Type.Description == request.searchPhrase.TypeDescription);
+                    i.Type.Description.Contains(request.searchPhrase.TypeDescription));
             if (!string.IsNullOrEmpty(request.searchPhrase.ActualVersion))
             {
                 string[] arr = request.searchPhrase.ActualVersion.Split(".");
@@ -50,6 +50,7 @@ namespace DeployApp.Application.Queries.Handlers
                         i.Id,
                         i.ProjectId,
                         i.Type.Description,
+                        i.Name,
                         i.Key,
                         i.Secret,
                         i.InstanceTags.Select(it => new GetTagDto(
@@ -63,9 +64,8 @@ namespace DeployApp.Application.Queries.Handlers
                             g.Group.Description
                             )),
                         i.ProjectVersion == null ? null : new GetProjectVersionDto(
-                                i.ProjectVersion.Major,
-                                i.ProjectVersion.Minor,
-                                i.ProjectVersion.Patch,
+                                i.ProjectVersion.Id,
+                                string.Join(".", i.ProjectVersion.Major, i.ProjectVersion.Minor, i.ProjectVersion.Patch),
                                 i.ProjectVersion.Description)
                         ));
 

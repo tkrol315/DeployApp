@@ -8,5 +8,6 @@ namespace DeployApp.Application.Repositories
         IQueryable<Instance> GetAllAsIQueryable(int projectId);
         Task<int> CreateInstanceAsync(Instance instance);
         Task UpdateInstanceAsync(Instance instance);
+        Task<bool> InstanceWithNameAlreadyExists(int projectId, string name);
     }
 }

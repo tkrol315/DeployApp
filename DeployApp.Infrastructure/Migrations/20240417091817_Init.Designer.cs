@@ -9,10 +9,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DeployApp.Infrastructure.EF.Migrations
+namespace DeployApp.Infrastructure.Migrations
 {
     [DbContext(typeof(DeployAppDbContext))]
-    [Migration("20240409091558_Init")]
+    [Migration("20240417091817_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace DeployApp.Infrastructure.EF.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -48,6 +48,9 @@ namespace DeployApp.Infrastructure.EF.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("group_011", (string)null);
                 });
 
@@ -65,6 +68,11 @@ namespace DeployApp.Infrastructure.EF.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("key_004")
+                        .HasColumnOrder(4);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text")
+                        .HasColumnName("name_004")
                         .HasColumnOrder(3);
 
                     b.Property<int>("ProjectId")
@@ -75,13 +83,13 @@ namespace DeployApp.Infrastructure.EF.Migrations
                     b.Property<int?>("ProjectVersionId")
                         .HasColumnType("integer")
                         .HasColumnName("id_002_actual_004")
-                        .HasColumnOrder(5);
+                        .HasColumnOrder(6);
 
                     b.Property<string>("Secret")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("secret_004")
-                        .HasColumnOrder(4);
+                        .HasColumnOrder(5);
 
                     b.Property<int>("TypeId")
                         .HasColumnType("integer")
@@ -284,7 +292,7 @@ namespace DeployApp.Infrastructure.EF.Migrations
                     b.HasOne("DeployApp.Domain.Entities.Project", "Project")
                         .WithMany("Instances")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DeployApp.Domain.Entities.ProjectVersion", "ProjectVersion")

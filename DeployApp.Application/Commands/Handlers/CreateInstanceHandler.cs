@@ -17,13 +17,16 @@ namespace DeployApp.Application.Commands.Handlers
 
         public async Task<int> Handle(CreateInstance request, CancellationToken cancellationToken)
         {
-            if (!await _projectRepository.ProjectWithIdAlredyExistsAsync(request.project_id))
+            if (!await _projectRepository.ProjectWithIdAlreadyExistsAsync(request.project_id))
                 throw new ProjectNotFoundException(request.project_id);
+            if (await _instanceRepository.InstanceWithNameAlreadyExists(request.project_id, request.dto.Name))
+                throw new ProjectAlreadyContainsInstanceWithNameException(request.project_id, request.dto.Name);
 
             var instance = new Instance()
             {
                 ProjectId = request.project_id,
                 Type = new Domain.Entities.Type() { Description = request.dto.TypeDescription},
+                Name = request.dto.Name,
                 Key = request.dto.Key,
                 Secret = request.dto.Secret,
                 ProjectVersionId = request.dto.ProjectVersionId ?? null,

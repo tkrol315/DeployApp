@@ -7,6 +7,7 @@
         public Project Project { get; set; }
         public int TypeId { get; set; }
         public Type Type { get; set; }
+        public string  Name { get; set; }
         public string Key { get; set; }
         public string Secret { get; set; }
         public int? ProjectVersionId { get; set; }

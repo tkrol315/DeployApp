@@ -47,10 +47,45 @@ namespace DeployApp.Api.Controllers
         [HttpPut("{project_id}")]
         public async Task<IActionResult> UpdateProject([FromRoute] int project_id, [FromBody] UpdateProjectDto dto)
         {
-            var command = new UpdateProject(project_id, dto);   
+            var command = new UpdateProject(project_id, dto);
             await _mediator.Send(command);
             return Ok();
         }
 
+        [HttpPost("{project_id}/versions")]
+        public async Task<IActionResult> CreateProjectVersionAction([FromRoute] int project_id, [FromBody] CreateProjectVersionDto dto)
+        {
+            var command = new CreateProjectVersion(project_id, dto);
+            var id = await _mediator.Send(command);
+            return CreatedAtAction(nameof(GetProjectVersionAction), new { project_id = project_id, version_id = id }, null);
+        }
+        [HttpGet("{project_id}/versions/{version_id}")]
+        public async Task<ActionResult<GetProjectVersionDto>> GetProjectVersionAction([FromRoute] GetProjectVersionAsDto command)
+        {
+            var version = await _mediator.Send(command);
+            return Ok(version);
+        }
+
+        [HttpGet("{project_id}/versions")]
+        public async Task<ActionResult<List<GetProjectVersionDto>>> GetAllProjectVersionsAction([FromRoute] GetProjectVersionsAsDtos command)
+        {
+            var versions = await _mediator.Send(command);
+            return Ok(versions);
+        }
+
+        [HttpPut("{project_id}/versions/{version_id}")]
+        public async Task<IActionResult> UpdateProjectVersionAction([FromRoute] int project_id, [FromRoute] int version_id, [FromBody] UpdateProjectVersionDto dto)
+        {
+            var command = new UpdateProjectVersion(project_id, version_id, dto);
+            await _mediator.Send(command);
+            return Ok();
+        }
+
+        [HttpDelete("{project_id}/versions/{version_id}")]
+        public async Task<IActionResult> RemoveProjectVersionAction([FromRoute] RemoveProjectVersion command)
+        {
+            await _mediator.Send(command);
+            return NoContent();
+        }
     }
 }

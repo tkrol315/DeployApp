@@ -24,6 +24,7 @@ namespace DeployApp.Application.Queries.Handlers
                 instance.Id,
                 instance.ProjectId,
                 instance.Type.Description,
+                instance.Name,
                 instance.Key,
                 instance.Secret,
                 instance.InstanceTags.Select(it => 
@@ -31,9 +32,8 @@ namespace DeployApp.Application.Queries.Handlers
                 instance.InstanceGroups.Select(ig => 
                     new GetGroupDto(ig.Group.Id, ig.Group.Name, ig.Group.Description)),
                 instance.ProjectVersion == null ? null : new GetProjectVersionDto(
-                    instance.ProjectVersion.Major,
-                    instance.ProjectVersion.Minor,
-                    instance.ProjectVersion.Patch,
+                    instance.ProjectVersion.Id,
+                    string.Join(".", instance.ProjectVersion.Major, instance.ProjectVersion.Minor, instance.ProjectVersion.Patch),
                     instance.ProjectVersion.Description)
                 );
         }

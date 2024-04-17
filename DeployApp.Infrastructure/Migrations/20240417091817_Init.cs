@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DeployApp.Infrastructure.EF.Migrations
+namespace DeployApp.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class Init : Migration
@@ -100,6 +100,7 @@ namespace DeployApp.Infrastructure.EF.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     id_001_004 = table.Column<int>(type: "integer", nullable: false),
                     id_003_004 = table.Column<int>(type: "integer", nullable: false),
+                    name_004 = table.Column<string>(type: "text", nullable: true),
                     key_004 = table.Column<string>(type: "text", nullable: false),
                     secret_004 = table.Column<string>(type: "text", nullable: false),
                     id_002_actual_004 = table.Column<int>(type: "integer", nullable: true)
@@ -117,7 +118,8 @@ namespace DeployApp.Infrastructure.EF.Migrations
                         name: "FK_instance_004_project_001_id_001_004",
                         column: x => x.id_001_004,
                         principalTable: "project_001",
-                        principalColumn: "id_001");
+                        principalColumn: "id_001",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_instance_004_project_version_002_id_002_actual_004",
                         column: x => x.id_002_actual_004,
@@ -172,6 +174,12 @@ namespace DeployApp.Infrastructure.EF.Migrations
                         principalColumn: "id_010",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_group_011_name_011",
+                table: "group_011",
+                column: "name_011",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_instance_004_id_001_004",

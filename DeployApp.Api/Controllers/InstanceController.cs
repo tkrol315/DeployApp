@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DeployApp.Api.Controllers
 {
     [ApiController]
-    [Route("deployapp/projects/{project_id}/instances")]
+    [Route("deployapp/projects/{project_id}/instances/")]
     public class InstanceController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -31,6 +31,12 @@ namespace DeployApp.Api.Controllers
             var dto = await _mediator.Send(query);
             return Ok(dto);
         }
+        [HttpDelete("{instance_id}")]
+        public async Task<IActionResult> Remove([FromRoute] RemoveInstance command)
+        {
+            await _mediator.Send(command);
+            return NoContent();
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateInstance([FromRoute] int project_id, [FromBody] CreateInstanceDto dto)
@@ -39,6 +45,16 @@ namespace DeployApp.Api.Controllers
             var id = await _mediator.Send(command);
             return CreatedAtAction(nameof(Get), new { project_id = project_id, instance_id = id }, null);
         }
+
+        [HttpPut("{instance_id}")]
+
+        public async Task<IActionResult> UpdateInstance([FromRoute] int project_id, [FromRoute] int instance_id, [FromBody] UpdateInstanceDto dto)
+        {
+            var command = new UpdateInstance(project_id, instance_id, dto);
+            await _mediator.Send(command);
+            return Ok();
+        }
+
         [HttpPost("{instance_id}/tags")]
         public async Task<IActionResult> AssignTag(
             [FromRoute] int project_id, [FromRoute] int instance_id, [FromBody] AssignTagDto dto)
