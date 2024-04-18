@@ -16,11 +16,11 @@ namespace DeployApp.Application.Commands.Handlers
 
         public async Task<int> Handle(CreateTag request, CancellationToken cancellationToken)
         {
-            if (await _tagRepository.TagWithNameAlreadyExistsAsync(request.createTagDto.Name))
-                throw new TagWithNameAlreadyExistsException(request.createTagDto.Name);
+            if (await _tagRepository.TagWithNameAlreadyExistsAsync(request.createTagDto.Name.ToUpper()))
+                throw new TagWithNameAlreadyExistsException(request.createTagDto.Name.ToUpper());
             var tag = new Tag()
             {
-                Name = request.createTagDto.Name,
+                Name = request.createTagDto.Name.ToUpper(),
                 Description = request.createTagDto.Description,
                 InstanceTags = new List<InstanceTag>()
             };

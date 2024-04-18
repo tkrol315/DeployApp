@@ -1,5 +1,8 @@
 ﻿using DeployApp.Application.Exceptions;
 using DeployApp.Application.Repositories;
+using DeployApp.Application.Utils;
+using DeployApp.Domain.Entities;
+using DeployApp.Domain.Enums;
 using MediatR;
 
 namespace DeployApp.Application.Commands.Handlers
@@ -24,22 +27,38 @@ namespace DeployApp.Application.Commands.Handlers
             if (instance.Name != request.dto.Name)
                 if (await _instanceRepository.InstanceWithNameAlreadyExists(request.project_id, request.dto.Name))
                     throw new ProjectAlreadyContainsInstanceWithNameException(request.project_id, request.dto.Name);
-            //not finished 
-            if (request.dto.VersionId != null)
+           
+            if (!string.IsNullOrEmpty(request.dto.VersionString))
             {
+                var dic = ProjectVersionConverter.VersionStringToDictionary(request.dto.VersionString);
+                var existingVersion = project.ProjectVersions.FirstOrDefault(v => 
+                    v.Major == dic[VersionParts.Major] &&
+                    v.Minor == dic[VersionParts.Minor] && 
+                    v.Patch == dic[VersionParts.Patch]);
 
-                instance.ProjectVersionId = request.dto.VersionId;
-
+                if (existingVersion != null)
+                    instance.ProjectVersionId = existingVersion.Id;
+                else if (!string.IsNullOrEmpty(request.dto.VersionDescription)) {
+                    var newVersion = new ProjectVersion()
+                    {
+                        Major = dic[VersionParts.Major],
+                        Minor = dic[VersionParts.Minor],
+                        Patch = dic[VersionParts.Patch],
+                        Description = request.dto.VersionDescription
+                    };
+                    project.ProjectVersions.Add(newVersion);
+                    instance.ProjectVersion = newVersion;
+                        }
+                else
+                    throw new VersionDescriptionMissingException(request.dto.VersionString);
+                
             }
-
             instance.Type.Description = request.dto.TypeDescription;
             instance.Name = request.dto.Name;
             instance.Key = request.dto.Key;
             instance.Secret = request.dto.Secret;
-            
-           
 
-            
+            await _projectRepository.UpdateProjectAsync(project);
         }
     }
 }

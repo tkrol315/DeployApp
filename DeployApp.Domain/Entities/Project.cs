@@ -10,5 +10,6 @@
         public string RepositoryUrl { get; set; }
         public ICollection<Instance> Instances { get; set; }
         public ICollection<ProjectVersion> ProjectVersions { get; set; }
+        public ICollection<Deploy> Deploys { get; set; }
     }
 }

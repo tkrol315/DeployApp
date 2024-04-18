@@ -1,6 +1,7 @@
 ﻿using DeployApp.Application.Dtos;
 using DeployApp.Application.Exceptions;
 using DeployApp.Application.Repositories;
+using DeployApp.Application.Utils;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -65,7 +66,7 @@ namespace DeployApp.Application.Queries.Handlers
                             )),
                         i.ProjectVersion == null ? null : new GetProjectVersionDto(
                                 i.ProjectVersion.Id,
-                                string.Join(".", i.ProjectVersion.Major, i.ProjectVersion.Minor, i.ProjectVersion.Patch),
+                                ProjectVersionConverter.VersionToVersionString(i.ProjectVersion.Major, i.ProjectVersion.Minor, i.ProjectVersion.Patch),
                                 i.ProjectVersion.Description)
                         ));
 

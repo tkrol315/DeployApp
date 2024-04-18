@@ -33,6 +33,7 @@ namespace DeployApp.Infrastructure.EF.Configuration
                 .WithMany(p => p.ProjectVersions)
                 .HasForeignKey(v => v.ProjectId)
                 .OnDelete(DeleteBehavior.Cascade);
+            
         }
     }
 }

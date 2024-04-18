@@ -1,6 +1,7 @@
 ﻿using DeployApp.Application.Dtos;
 using DeployApp.Application.Exceptions;
 using DeployApp.Application.Repositories;
+using DeployApp.Application.Utils;
 using MediatR;
 
 namespace DeployApp.Application.Queries.Handlers
@@ -33,7 +34,7 @@ namespace DeployApp.Application.Queries.Handlers
                     new GetGroupDto(ig.Group.Id, ig.Group.Name, ig.Group.Description)),
                 instance.ProjectVersion == null ? null : new GetProjectVersionDto(
                     instance.ProjectVersion.Id,
-                    string.Join(".", instance.ProjectVersion.Major, instance.ProjectVersion.Minor, instance.ProjectVersion.Patch),
+                    ProjectVersionConverter.VersionToVersionString(instance.ProjectVersion.Major, instance.ProjectVersion.Minor, instance.ProjectVersion.Patch),
                     instance.ProjectVersion.Description)
                 );
         }

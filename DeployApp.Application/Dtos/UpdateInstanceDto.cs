@@ -6,7 +6,8 @@
             string Name,
             string Key,
             string Secret,
-            int? VersionId
+            string? VersionString,
+            string? VersionDescription
         );
 
     

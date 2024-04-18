@@ -37,11 +37,12 @@ namespace DeployApp.Infrastructure.EF.Configuration
                 .WithOne(t => t.Instance)
                 .HasForeignKey<Instance>(i => i.TypeId)
                 .OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne(i => i.ProjectVersion) 
-                .WithOne() 
-                .HasForeignKey<Instance>(i => i.ProjectVersionId) 
+            builder.HasOne(i => i.ProjectVersion)
+                .WithOne()
+                .HasForeignKey<Instance>(i => i.ProjectVersionId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }

@@ -17,12 +17,12 @@ namespace DeployApp.Application.Commands.Handlers
         {
             var tag = await _tagRepository.GetTagByIdAsync(request.tag_id)
                 ?? throw new TagNotFoundException(request.tag_id);
+            var dtoTagNameToUpper = request.updateTagDto.Name.ToUpper();
+            if (tag.Name != dtoTagNameToUpper)
+                if (await _tagRepository.TagWithNameAlreadyExistsAsync(dtoTagNameToUpper))
+                    throw new TagWithNameAlreadyExistsException(dtoTagNameToUpper);
 
-            if (tag.Name != request.updateTagDto.Name)
-                if (await _tagRepository.TagWithNameAlreadyExistsAsync(request.updateTagDto.Name))
-                    throw new TagWithNameAlreadyExistsException(request.updateTagDto.Name);
-
-            tag.Name = request.updateTagDto.Name;
+            tag.Name = dtoTagNameToUpper;
             tag.Description = request.updateTagDto.Description;
             await _tagRepository.UpdateTagAsync(tag);
         }

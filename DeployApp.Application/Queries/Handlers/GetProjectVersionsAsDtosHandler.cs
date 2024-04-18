@@ -1,6 +1,7 @@
 ﻿using DeployApp.Application.Dtos;
 using DeployApp.Application.Exceptions;
 using DeployApp.Application.Repositories;
+using DeployApp.Application.Utils;
 using MediatR;
 
 namespace DeployApp.Application.Queries.Handlers
@@ -23,7 +24,7 @@ namespace DeployApp.Application.Queries.Handlers
                 .Select(pv =>
                 new GetProjectVersionDto(
                         pv.Id,
-                        string.Join(".", pv.Major, pv.Minor, pv.Patch),
+                        ProjectVersionConverter.VersionToVersionString(pv.Major, pv.Minor,pv.Patch),
                         pv.Description
                     )).ToList();
 

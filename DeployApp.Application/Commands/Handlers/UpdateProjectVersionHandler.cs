@@ -1,7 +1,10 @@
 ﻿using DeployApp.Application.Exceptions;
 using DeployApp.Application.Queries.Handlers;
 using DeployApp.Application.Repositories;
+using DeployApp.Application.Utils;
+using DeployApp.Domain.Enums;
 using MediatR;
+using System.Security;
 
 namespace DeployApp.Application.Commands.Handlers
 {
@@ -21,21 +24,12 @@ namespace DeployApp.Application.Commands.Handlers
             var projectVersion = project.ProjectVersions.FirstOrDefault(v => v.Id == request.version_id)
                 ?? throw new ProjectVersionNotFoundException(request.version_id);
 
-            var versionParts = request.dto.VersionString.Split('.');
-            if(versionParts.Length != 3)
-                throw new ProjectVersionFormatException(request.dto.VersionString);
-            if (int.TryParse(versionParts[0], out var major) &&
-                   int.TryParse(versionParts[1], out var minor) &&
-                   int.TryParse(versionParts[2], out var patch))
-            {
-                projectVersion.Major = major;
-                projectVersion.Minor = minor;
-                projectVersion.Patch = patch;
-                projectVersion.Description = request.dto.Description;
-                await _projectRepository.UpdateProjectAsync(project);
-            }
-            else
-                throw new ProjectVersionParseException(request.dto.VersionString);
+            var versionDic = ProjectVersionConverter.VersionStringToDictionary(request.dto.VersionString);
+            projectVersion.Major = versionDic[VersionParts.Major];
+            projectVersion.Minor = versionDic[VersionParts.Minor];
+            projectVersion.Patch = versionDic[VersionParts.Patch];
+            projectVersion.Description = request.dto.Description;
+            await _projectRepository.UpdateProjectAsync(project);
           
         }
     }

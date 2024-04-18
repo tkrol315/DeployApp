@@ -32,14 +32,15 @@ namespace DeployApp.Application.Commands.Handlers
                 ?? throw new ProjectNotFoundException(request.project_id);
             var instance = project.Instances.FirstOrDefault(i => i.Id == request.instance_id)
                 ?? throw new InstanceNotFoundException(request.instance_id);
-            if (instance.InstanceTags.Any(it => it.Tag.Name == request.dto.Name))
-                throw new TagWithNameAlreadyAssignedToInstanceException(request.instance_id, request.dto.Name);
-            var tag = await _tagRepository.GetTagByNameAsync(request.dto.Name);
+            var dtoNameToUpper = request.dto.Name.ToUpper();
+            if (instance.InstanceTags.Any(it => it.Tag.Name == dtoNameToUpper))
+                throw new TagWithNameAlreadyAssignedToInstanceException(request.instance_id, dtoNameToUpper);
+            var tag = await _tagRepository.GetTagByNameAsync(dtoNameToUpper);
             var instanceTag = new InstanceTag();
             instanceTag.Instance = instance;
             if (tag is null)
             {
-                var command = new CreateTag(new CreateTagDto(request.dto.Name, request.dto.Description));
+                var command = new CreateTag(new CreateTagDto(dtoNameToUpper, request.dto.Description));
                 var id = await _mediator.Send(command);               
                 instanceTag.TagId = id;
             }

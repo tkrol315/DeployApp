@@ -12,6 +12,7 @@
         public string Secret { get; set; }
         public int? ProjectVersionId { get; set; }
         public ProjectVersion ProjectVersion { get; set; }
+        public DeployInstance DeployInstance { get; set; }
         public ICollection<InstanceTag> InstanceTags { get; set; } 
         public ICollection<InstanceGroup> InstanceGroups { get; set; }
 

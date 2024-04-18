@@ -34,13 +34,11 @@ namespace DeployApp.Infrastructure.Repositories
                     .ThenInclude(i => i.InstanceTags)
                         .ThenInclude(it => it.Tag)
                 .Include(p => p.Instances)
-                .   ThenInclude(i => i.InstanceGroups)
+                    .ThenInclude(i => i.InstanceGroups)
                         .ThenInclude(ig => ig.Group)
                 .Include(p => p.ProjectVersions)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
-        public async Task<bool> ProjectWithIdAlreadyExistsAsync(int id)
-            => await _context.Projects.AnyAsync(p => p.Id == id);
 
         public async Task<bool> ProjectWithTitleAlreadyExistsAsync(string title)
             => await _context.Projects.AnyAsync(p => p.Title == title);

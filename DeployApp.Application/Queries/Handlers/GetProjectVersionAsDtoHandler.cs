@@ -1,6 +1,7 @@
 ﻿using DeployApp.Application.Dtos;
 using DeployApp.Application.Exceptions;
 using DeployApp.Application.Repositories;
+using DeployApp.Application.Utils;
 using MediatR;
 
 namespace DeployApp.Application.Queries.Handlers
@@ -21,7 +22,7 @@ namespace DeployApp.Application.Queries.Handlers
             var projectVersion = project.ProjectVersions.FirstOrDefault(pv => pv.Id == request.version_id)
                 ?? throw new ProjectVersionNotFoundException(request.version_id);
             return new GetProjectVersionDto(projectVersion.Id, 
-                string.Join(".", projectVersion.Major,projectVersion.Minor,projectVersion.Patch),
+                ProjectVersionConverter.VersionToVersionString(projectVersion.Major, projectVersion.Minor, projectVersion.Patch),
                 projectVersion.Description);
         }
     }

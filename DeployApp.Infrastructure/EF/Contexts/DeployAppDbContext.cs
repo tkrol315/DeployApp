@@ -13,6 +13,8 @@ namespace DeployApp.Infrastructure.EF.Contexts
         public DbSet<Domain.Entities.Type> Types { get; set; }
         public DbSet<InstanceTag> InstanceTags { get; set; }
         public DbSet<InstanceGroup> InstanceGroups { get; set; }
+        public DbSet<Deploy> Deploys { get; set; }
+        public DbSet<DeployInstance> DeployInstances { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
             => modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
 
