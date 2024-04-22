@@ -41,8 +41,7 @@ namespace DeployApp.Infrastructure.EF.Configuration
             builder.HasMany(p => p.ProjectVersions)
                 .WithOne(v => v.Project)
                 .HasForeignKey(v => v.ProjectId)
-                .OnDelete(DeleteBehavior.NoAction);
-            
+                .OnDelete(DeleteBehavior.NoAction);            
         }
     }
 }

@@ -3,20 +3,17 @@ using System;
 using DeployApp.Infrastructure.EF.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DeployApp.Infrastructure.Migrations
+namespace DeployApp.Infrastructure.EF.Migrations
 {
     [DbContext(typeof(DeployAppDbContext))]
-    [Migration("20240417091817_Init")]
-    partial class Init
+    partial class DeployAppDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,6 +21,74 @@ namespace DeployApp.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("DeployApp.Domain.Entities.Deploy", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id_100")
+                        .HasColumnOrder(0);
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("End")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("end_100")
+                        .HasColumnOrder(4);
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active_100")
+                        .HasColumnOrder(5);
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("integer")
+                        .HasColumnName("id_001_100")
+                        .HasColumnOrder(1);
+
+                    b.Property<int>("ProjectVersionId")
+                        .HasColumnType("integer")
+                        .HasColumnName("id_002_100")
+                        .HasColumnOrder(2);
+
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("start_100")
+                        .HasColumnOrder(3);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
+
+                    b.HasIndex("ProjectVersionId");
+
+                    b.ToTable("deploy_100", (string)null);
+                });
+
+            modelBuilder.Entity("DeployApp.Domain.Entities.DeployInstance", b =>
+                {
+                    b.Property<int>("DeployId")
+                        .HasColumnType("integer")
+                        .HasColumnName("id_100_101")
+                        .HasColumnOrder(0);
+
+                    b.Property<int>("InstanceId")
+                        .HasColumnType("integer")
+                        .HasColumnName("id_004_101")
+                        .HasColumnOrder(1);
+
+                    b.Property<string>("Status")
+                        .HasColumnType("text")
+                        .HasColumnName("status_101")
+                        .HasColumnOrder(2);
+
+                    b.HasKey("DeployId", "InstanceId");
+
+                    b.HasIndex("InstanceId");
+
+                    b.ToTable("deploy_instance_101", (string)null);
+                });
 
             modelBuilder.Entity("DeployApp.Domain.Entities.Group", b =>
                 {
@@ -100,8 +165,7 @@ namespace DeployApp.Infrastructure.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.HasIndex("ProjectVersionId")
-                        .IsUnique();
+                    b.HasIndex("ProjectVersionId");
 
                     b.HasIndex("TypeId")
                         .IsUnique();
@@ -287,6 +351,44 @@ namespace DeployApp.Infrastructure.Migrations
                     b.ToTable("instance_type_003", (string)null);
                 });
 
+            modelBuilder.Entity("DeployApp.Domain.Entities.Deploy", b =>
+                {
+                    b.HasOne("DeployApp.Domain.Entities.Project", "Project")
+                        .WithMany("Deploys")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DeployApp.Domain.Entities.ProjectVersion", "ProjectVersion")
+                        .WithMany("Deploys")
+                        .HasForeignKey("ProjectVersionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
+
+                    b.Navigation("ProjectVersion");
+                });
+
+            modelBuilder.Entity("DeployApp.Domain.Entities.DeployInstance", b =>
+                {
+                    b.HasOne("DeployApp.Domain.Entities.Deploy", "Deploy")
+                        .WithMany("DeployInstances")
+                        .HasForeignKey("DeployId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DeployApp.Domain.Entities.Instance", "Instance")
+                        .WithMany("DeployInstances")
+                        .HasForeignKey("InstanceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Deploy");
+
+                    b.Navigation("Instance");
+                });
+
             modelBuilder.Entity("DeployApp.Domain.Entities.Instance", b =>
                 {
                     b.HasOne("DeployApp.Domain.Entities.Project", "Project")
@@ -296,8 +398,8 @@ namespace DeployApp.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("DeployApp.Domain.Entities.ProjectVersion", "ProjectVersion")
-                        .WithOne()
-                        .HasForeignKey("DeployApp.Domain.Entities.Instance", "ProjectVersionId")
+                        .WithMany("Instances")
+                        .HasForeignKey("ProjectVersionId")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("DeployApp.Domain.Entities.Type", "Type")
@@ -362,6 +464,11 @@ namespace DeployApp.Infrastructure.Migrations
                     b.Navigation("Project");
                 });
 
+            modelBuilder.Entity("DeployApp.Domain.Entities.Deploy", b =>
+                {
+                    b.Navigation("DeployInstances");
+                });
+
             modelBuilder.Entity("DeployApp.Domain.Entities.Group", b =>
                 {
                     b.Navigation("InstanceGroups");
@@ -369,6 +476,8 @@ namespace DeployApp.Infrastructure.Migrations
 
             modelBuilder.Entity("DeployApp.Domain.Entities.Instance", b =>
                 {
+                    b.Navigation("DeployInstances");
+
                     b.Navigation("InstanceGroups");
 
                     b.Navigation("InstanceTags");
@@ -376,9 +485,18 @@ namespace DeployApp.Infrastructure.Migrations
 
             modelBuilder.Entity("DeployApp.Domain.Entities.Project", b =>
                 {
+                    b.Navigation("Deploys");
+
                     b.Navigation("Instances");
 
                     b.Navigation("ProjectVersions");
+                });
+
+            modelBuilder.Entity("DeployApp.Domain.Entities.ProjectVersion", b =>
+                {
+                    b.Navigation("Deploys");
+
+                    b.Navigation("Instances");
                 });
 
             modelBuilder.Entity("DeployApp.Domain.Entities.Tag", b =>

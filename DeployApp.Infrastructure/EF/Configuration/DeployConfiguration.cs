@@ -29,10 +29,13 @@ namespace DeployApp.Infrastructure.EF.Configuration
                 .HasColumnName("is_active_100")
                 .HasColumnOrder(5);
             builder.HasOne(d => d.ProjectVersion)
-                .WithOne(pv => pv.Deploy)
-                .HasForeignKey<Deploy>(d => d.ProjectVersionId)
-                .OnDelete(DeleteBehavior.NoAction);
-            
+                .WithMany(pv => pv.Deploys)
+                .HasForeignKey(d => d.ProjectVersionId)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(d => d.Project)
+                .WithMany(p => p.Deploys)
+                .HasForeignKey(d => d.ProjectId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

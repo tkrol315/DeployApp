@@ -30,7 +30,8 @@ namespace DeployApp.Application.Commands.Handlers
                 Major = versionDic[VersionParts.Major],
                 Minor = versionDic[VersionParts.Minor],
                 Patch = versionDic[VersionParts.Patch],
-                Description = request.dto.Description
+                Description = request.dto.Description,
+                Instances = new List<Instance>()
             };
             project.ProjectVersions.Add(projectVersion);
             await _projectRepository.UpdateProjectAsync(project);

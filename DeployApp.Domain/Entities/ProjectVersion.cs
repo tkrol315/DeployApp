@@ -9,6 +9,7 @@
         public int Minor { get; set; }  
         public int Patch { get; set; }
         public string Description { get; set; }
-        public Deploy Deploy { get; set; }
+        public ICollection<Instance> Instances { get; set; }
+        public ICollection<Deploy> Deploys { get; set; }
     }
 }

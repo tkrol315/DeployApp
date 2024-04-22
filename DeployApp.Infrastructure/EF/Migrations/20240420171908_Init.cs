@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DeployApp.Infrastructure.Migrations
+namespace DeployApp.Infrastructure.EF.Migrations
 {
     /// <inheritdoc />
     public partial class Init : Migration
@@ -189,8 +189,7 @@ namespace DeployApp.Infrastructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_instance_004_id_002_actual_004",
                 table: "instance_004",
-                column: "id_002_actual_004",
-                unique: true);
+                column: "id_002_actual_004");
 
             migrationBuilder.CreateIndex(
                 name: "IX_instance_004_id_003_004",
