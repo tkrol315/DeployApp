@@ -15,6 +15,9 @@ namespace DeployApp.Application.Repositories
         Task<Project> GetProjectWithInstancesAndGroupsByIdAsync(int id);
         Task RemoveProjectAsync(Project project);
         Task UpdateProjectAsync(Project project);
-        //Task<Project> GetProjectWithDeploysAsync(int id);
+        Task<Project> GetProjectWithDeploysByIdAsync(int id);
+        Task<Project> GetProjectWithDeploysAndProjectVersionsByIdAsync(int id);
+        Task<Project> GetProjectWithDeployAndInstancesAsync(int id);
+        Task<Project> GetProjectWithInstancesAndDeploysWithInstancesByIdAsnyc(int id);
     }
 }

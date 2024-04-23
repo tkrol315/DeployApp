@@ -1,7 +1,7 @@
-﻿using DeployApp.Application.Dtos;
+﻿using DeployApp.Application.Abstractions;
+using DeployApp.Application.Dtos;
 using DeployApp.Application.Exceptions;
 using DeployApp.Application.Repositories;
-using DeployApp.Application.Utils;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,10 +10,12 @@ namespace DeployApp.Application.Queries.Handlers
     public class GetInstancesAsDtosHandler : IRequestHandler<GetInstancesAsDtos, List<GetInstanceDto>>
     {
         private readonly IInstanceRepository _instanceRepository;
+        private readonly IProjectVersionConverter _converter;
 
-        public GetInstancesAsDtosHandler(IInstanceRepository instanceRepository)
+        public GetInstancesAsDtosHandler(IInstanceRepository instanceRepository, IProjectVersionConverter converter)
         {
             _instanceRepository = instanceRepository;
+            _converter = converter;
         }
 
         public async Task<List<GetInstanceDto>> Handle(GetInstancesAsDtos request, CancellationToken cancellationToken)
@@ -66,7 +68,7 @@ namespace DeployApp.Application.Queries.Handlers
                             )),
                         i.ProjectVersion == null ? null : new GetProjectVersionDto(
                                 i.ProjectVersion.Id,
-                                ProjectVersionConverter.VersionToVersionString(i.ProjectVersion.Major, i.ProjectVersion.Minor, i.ProjectVersion.Patch),
+                                _converter.VersionToVersionString(i.ProjectVersion.Major, i.ProjectVersion.Minor, i.ProjectVersion.Patch),
                                 i.ProjectVersion.Description)
                         ));
 

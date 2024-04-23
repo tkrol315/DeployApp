@@ -1,6 +1,6 @@
-﻿using DeployApp.Application.Exceptions;
+﻿using DeployApp.Application.Abstractions;
+using DeployApp.Application.Exceptions;
 using DeployApp.Application.Repositories;
-using DeployApp.Application.Utils;
 using DeployApp.Domain.Entities;
 using DeployApp.Domain.Enums;
 using MediatR;
@@ -11,10 +11,12 @@ namespace DeployApp.Application.Commands.Handlers
     {
         private readonly IInstanceRepository _instanceRepository;
         private readonly IProjectRepository _projectRepository;
-        public CreateInstanceHandler(IInstanceRepository instanceRepository, IProjectRepository projectRepository)
+        private readonly IProjectVersionConverter _converter;
+        public CreateInstanceHandler(IInstanceRepository instanceRepository, IProjectRepository projectRepository, IProjectVersionConverter converter)
         {
             _instanceRepository = instanceRepository;
             _projectRepository = projectRepository;
+            _converter = converter;
         }
 
         public async Task<int> Handle(CreateInstance request, CancellationToken cancellationToken)
@@ -35,7 +37,7 @@ namespace DeployApp.Application.Commands.Handlers
             };
             if (!string.IsNullOrEmpty(request.dto.VersionString))
             {
-                var versionDic = ProjectVersionConverter.VersionStringToDictionary(request.dto.VersionString);
+                var versionDic = _converter.VersionStringToDictionary(request.dto.VersionString);
                 var existingVersion = project.ProjectVersions.FirstOrDefault(v =>
                    v.Major == versionDic[VersionParts.Major] &&
                    v.Minor == versionDic[VersionParts.Minor] &&

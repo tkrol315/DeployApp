@@ -10,6 +10,7 @@ namespace DeployApp.Application.Commands.Validators
             RuleFor(a => a.Name)
                 .NotEmpty()
                 .WithMessage("GroupName cannot be empty");
+            
         }
     }
 }

@@ -1,11 +1,12 @@
-﻿using DeployApp.Application.Exceptions;
+﻿using DeployApp.Application.Abstractions;
+using DeployApp.Application.Exceptions;
 using DeployApp.Domain.Enums;
 
-namespace DeployApp.Application.Utils
+namespace DeployApp.Infrastructure.Abstractions
 {
-    public static class ProjectVersionConverter
+    public class ProjectVersionConverter : IProjectVersionConverter
     {
-        public static Dictionary<VersionParts, int> VersionStringToDictionary(string versionString)
+        public Dictionary<VersionParts, int> VersionStringToDictionary(string versionString)
         {
             var versionParts = versionString.Split('.');
             if (versionParts.Length != 3)
@@ -27,7 +28,7 @@ namespace DeployApp.Application.Utils
                 throw new ProjectVersionParseException(versionString);
         }
 
-        public static string VersionToVersionString(int major, int minor, int patch)
-            => string.Join(".",major,minor,patch);
+        public string VersionToVersionString(int major, int minor, int patch)
+            => string.Join(".", major, minor, patch);
     }
 }

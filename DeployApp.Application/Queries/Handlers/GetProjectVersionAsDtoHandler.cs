@@ -1,7 +1,7 @@
-﻿using DeployApp.Application.Dtos;
+﻿using DeployApp.Application.Abstractions;
+using DeployApp.Application.Dtos;
 using DeployApp.Application.Exceptions;
 using DeployApp.Application.Repositories;
-using DeployApp.Application.Utils;
 using MediatR;
 
 namespace DeployApp.Application.Queries.Handlers
@@ -9,10 +9,12 @@ namespace DeployApp.Application.Queries.Handlers
     public class GetProjectVersionAsDtoHandler : IRequestHandler<GetProjectVersionAsDto, GetProjectVersionDto>
     {
         private readonly IProjectRepository _projectRepository;
+        private readonly IProjectVersionConverter _converter;
 
-        public GetProjectVersionAsDtoHandler(IProjectRepository projectRepository)
+        public GetProjectVersionAsDtoHandler(IProjectRepository projectRepository, IProjectVersionConverter converter)
         {
             _projectRepository = projectRepository;
+            _converter = converter;
         }
 
         public async Task<GetProjectVersionDto> Handle(GetProjectVersionAsDto request, CancellationToken cancellationToken)
@@ -22,7 +24,7 @@ namespace DeployApp.Application.Queries.Handlers
             var projectVersion = project.ProjectVersions.FirstOrDefault(pv => pv.Id == request.version_id)
                 ?? throw new ProjectVersionNotFoundException(request.version_id);
             return new GetProjectVersionDto(projectVersion.Id, 
-                ProjectVersionConverter.VersionToVersionString(projectVersion.Major, projectVersion.Minor, projectVersion.Patch),
+                _converter.VersionToVersionString(projectVersion.Major, projectVersion.Minor, projectVersion.Patch),
                 projectVersion.Description);
         }
     }

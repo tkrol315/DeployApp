@@ -17,9 +17,9 @@ namespace DeployApp.Api.Controllers
             _mediator = mediator;
         }
         [HttpGet]
-        public async Task<ActionResult<List<GetTagDto>>> GetAll([FromRoute] GetProjectsAsDtos command)
+        public async Task<ActionResult<List<GetTagDto>>> GetAll([FromRoute] GetProjectsAsDtos query)
         {
-            var projects = await _mediator.Send(command);
+            var projects = await _mediator.Send(query);
             return Ok(projects);
         }
 
@@ -60,9 +60,9 @@ namespace DeployApp.Api.Controllers
             return CreatedAtAction(nameof(GetProjectVersionAction), new { project_id = project_id, version_id = id }, null);
         }
         [HttpGet("{project_id}/versions/{version_id}")]
-        public async Task<ActionResult<GetProjectVersionDto>> GetProjectVersionAction([FromRoute] GetProjectVersionAsDto command)
+        public async Task<ActionResult<GetProjectVersionDto>> GetProjectVersionAction([FromRoute] GetProjectVersionAsDto query)
         {
-            var version = await _mediator.Send(command);
+            var version = await _mediator.Send(query);
             return Ok(version);
         }
 
@@ -87,6 +87,56 @@ namespace DeployApp.Api.Controllers
             await _mediator.Send(command);
             return NoContent();
         }
-        
+
+        [HttpGet("{project_id}/deploys")]
+        public async Task<ActionResult<List<GetDeployDto>>> GetProjectDeploys([FromRoute] GetDeploysAsDtos query)
+        {
+            var deploys = await _mediator.Send(query);
+            return Ok(deploys);
+        }
+
+        [HttpPost("{project_id}/deploys")]
+        public async Task<IActionResult> CreateProjectDeploy([FromRoute] int project_id, [FromBody] CreateDeployDto dto)
+        {
+            var command = new CreateDeploy(project_id, dto);
+            var id = await _mediator.Send(command);
+            return CreatedAtAction(nameof(GetProjectDeploy), new { project_id = project_id, deploy_id = id}, null);
+        }
+
+        [HttpGet("{project_id}/deploys/{deploy_id}")]
+        public async Task<ActionResult<GetDeployDto>> GetProjectDeploy([FromRoute] GetDeployAsDto query)
+        {
+            var deploy = await _mediator.Send(query);
+            return Ok(deploy);
+        }
+
+        [HttpDelete("{project_id}/deploys/{deploy_id}")]
+        public async Task<IActionResult> RemoveProjectDeploy([FromRoute] RemoveDeploy command)
+        {
+            await _mediator.Send(command);
+            return NoContent();
+        }
+        [HttpPut("{project_id}/deploys/{deploy_id}")]
+        public async Task<IActionResult> UpdateProjectDeploy([FromRoute] int project_id, [FromRoute] int deploy_id, [FromBody] UpdateDeployDto dto)
+        {
+            var command = new UpdateDeploy(project_id, deploy_id, dto);
+            await _mediator.Send(command);
+            return Ok();
+        }
+        [HttpGet("{project_id}/deploys/{deploy_id}/instances")]
+        public async Task<ActionResult<List<GetInstanceDto>>> GetDeployInstances([FromRoute] int project_id, [FromRoute] int deploy_id, [FromQuery] string? status)
+        {
+            var query = new GetDeployInstancesAsDtos(project_id, deploy_id, status);
+            var dtos = await _mediator.Send(query);
+            return Ok(dtos);
+        }
+        [HttpPost("{project_id}/deploys/{deploy_id}/instances")]
+        public async Task<IActionResult> AssignInstanceToDeploy([FromRoute] int project_id, [FromRoute] int deploy_id, [FromBody] AssignInstanceToDeployDto dto)
+        {
+            var command = new AssignInstanceToDeploy(project_id, deploy_id, dto);
+            var id = await _mediator.Send(command);
+            //change to created at action 
+            return Created();
+        }
     }
 }

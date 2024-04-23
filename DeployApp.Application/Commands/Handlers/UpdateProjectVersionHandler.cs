@@ -1,20 +1,19 @@
-﻿using DeployApp.Application.Exceptions;
-using DeployApp.Application.Queries.Handlers;
+﻿using DeployApp.Application.Abstractions;
+using DeployApp.Application.Exceptions;
 using DeployApp.Application.Repositories;
-using DeployApp.Application.Utils;
 using DeployApp.Domain.Enums;
 using MediatR;
-using System.Security;
 
 namespace DeployApp.Application.Commands.Handlers
 {
     public class UpdateProjectVersionHandler : IRequestHandler<UpdateProjectVersion>
     {
         private readonly IProjectRepository _projectRepository;
-
-        public UpdateProjectVersionHandler(IProjectRepository projectRepository)
+        private readonly IProjectVersionConverter _converter;
+        public UpdateProjectVersionHandler(IProjectRepository projectRepository, IProjectVersionConverter converter)
         {
             _projectRepository = projectRepository;
+            _converter = converter;
         }
 
         public async Task Handle(UpdateProjectVersion request, CancellationToken cancellationToken)
@@ -24,7 +23,7 @@ namespace DeployApp.Application.Commands.Handlers
             var projectVersion = project.ProjectVersions.FirstOrDefault(v => v.Id == request.version_id)
                 ?? throw new ProjectVersionNotFoundException(request.version_id);
 
-            var versionDic = ProjectVersionConverter.VersionStringToDictionary(request.dto.VersionString);
+            var versionDic = _converter.VersionStringToDictionary(request.dto.VersionString);
             projectVersion.Major = versionDic[VersionParts.Major];
             projectVersion.Minor = versionDic[VersionParts.Minor];
             projectVersion.Patch = versionDic[VersionParts.Patch];

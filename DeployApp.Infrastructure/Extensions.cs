@@ -1,4 +1,6 @@
-﻿using DeployApp.Application.Repositories;
+﻿using DeployApp.Application.Abstractions;
+using DeployApp.Application.Repositories;
+using DeployApp.Infrastructure.Abstractions;
 using DeployApp.Infrastructure.EF.Contexts;
 using DeployApp.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +19,7 @@ namespace DeployApp.Infrastructure
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IInstanceRepository, InstanceRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IProjectVersionConverter, ProjectVersionConverter>();
             return services;
         }
     }

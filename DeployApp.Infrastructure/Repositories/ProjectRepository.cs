@@ -78,5 +78,66 @@ namespace DeployApp.Infrastructure.Repositories
             => await _context.Projects
             .Include(p => p.ProjectVersions.AsQueryable())
             .FirstOrDefaultAsync(p => p.Id == id);
+
+        public Task<Project> GetProjectWithDeploysByIdAsync(int id)
+            => _context.Projects.
+            Include(p => p.ProjectVersions)
+            .Include(p => p.Deploys)
+                .ThenInclude(d => d.DeployInstances)
+                    .ThenInclude(di => di.Instance)
+                        .ThenInclude(i => i.InstanceTags)
+                            .ThenInclude(it => it.Tag)
+            .Include(p => p.Deploys)
+                .ThenInclude(d => d.DeployInstances)
+                    .ThenInclude(di => di.Instance)
+                        .ThenInclude(i => i.InstanceGroups)
+                            .ThenInclude(ig => ig.Group)
+            .Include(p => p.Deploys)
+                .ThenInclude(d => d.DeployInstances)
+                    .ThenInclude(di => di.Instance)
+                        .ThenInclude(i => i.ProjectVersion)
+            .Include(p => p.Deploys)
+                .ThenInclude(d => d.DeployInstances)
+                    .ThenInclude(di => di.Instance)
+                        .ThenInclude(i => i.Type)
+            .FirstOrDefaultAsync(p => p.Id == id);
+
+        public  Task<Project> GetProjectWithDeploysAndProjectVersionsByIdAsync(int id)
+            =>  _context.Projects
+            .Include(p => p.ProjectVersions)
+            .Include(p => p.Deploys)
+            .FirstOrDefaultAsync(p => p.Id == id);
+
+        public Task<Project> GetProjectWithDeployAndInstancesAsync(int id)
+            => _context.Projects
+            .Include(p => p.Deploys)
+                .ThenInclude(d => d.DeployInstances)
+                    .ThenInclude(di => di.Instance)
+                        .ThenInclude(i => i.InstanceTags)
+                            .ThenInclude(it => it.Tag)
+            .Include(p => p.Deploys)
+                .ThenInclude(d => d.DeployInstances)
+                    .ThenInclude(di => di.Instance)
+                        .ThenInclude(i => i.InstanceGroups)
+                            .ThenInclude(it => it.Group)
+            .Include(p => p.Deploys)
+                .ThenInclude(d => d.DeployInstances)
+                    .ThenInclude(di => di.Instance)
+                        .ThenInclude(i => i.ProjectVersion)
+            .Include(p => p.Deploys)
+                .ThenInclude(d => d.DeployInstances)
+                    .ThenInclude(di => di.Instance)
+                        .ThenInclude(i => i.Type)
+            .FirstOrDefaultAsync(p => p.Id == id);
+
+        public Task<Project> GetProjectWithInstancesAndDeploysWithInstancesByIdAsnyc(int id)
+            => _context.Projects
+                .Include(p => p.Deploys)
+                    .ThenInclude(d => d.DeployInstances)
+                        .ThenInclude(di => di.Instance)
+                .Include(p => p.Instances)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+
     }
 }

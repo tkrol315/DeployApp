@@ -1,7 +1,6 @@
-﻿using DeployApp.Application.Exceptions;
-using DeployApp.Application.Queries.Handlers;
+﻿using DeployApp.Application.Abstractions;
+using DeployApp.Application.Exceptions;
 using DeployApp.Application.Repositories;
-using DeployApp.Application.Utils;
 using DeployApp.Domain.Entities;
 using DeployApp.Domain.Enums;
 using MediatR;
@@ -11,10 +10,12 @@ namespace DeployApp.Application.Commands.Handlers
     public class CreateProjectVersionHandler : IRequestHandler<CreateProjectVersion, int>
     {
         private readonly IProjectRepository _projectRepository;
+        private readonly IProjectVersionConverter _converter;
 
-        public CreateProjectVersionHandler(IProjectRepository projectRepository)
+        public CreateProjectVersionHandler(IProjectRepository projectRepository, IProjectVersionConverter converter)
         {
             _projectRepository = projectRepository;
+            _converter = converter;
         }
 
         public async Task<int> Handle(CreateProjectVersion request, CancellationToken cancellationToken)
@@ -22,7 +23,7 @@ namespace DeployApp.Application.Commands.Handlers
             var project = await _projectRepository.GetProjectWithProjectVersionsByIdAsync(request.project_id)
                 ?? throw new ProjectNotFoundException(request.project_id);
 
-            var versionDic = ProjectVersionConverter.VersionStringToDictionary(request.dto.VersionString);
+            var versionDic = _converter.VersionStringToDictionary(request.dto.VersionString);
 
             var projectVersion = new ProjectVersion()
             {
