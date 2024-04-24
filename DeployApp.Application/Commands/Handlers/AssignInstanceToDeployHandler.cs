@@ -16,14 +16,14 @@ namespace DeployApp.Application.Commands.Handlers
 
         public async Task<int> Handle(AssignInstanceToDeploy request, CancellationToken cancellationToken)
         {
-            var project = await _projectRepository.GetProjectWithInstancesAndDeploysWithInstancesByIdAsnyc(request.project_id)
+            var project = await _projectRepository.GetProjectWithInstancesAndDeploysWithInstancesByIdAsync(request.project_id)
                 ?? throw new ProjectNotFoundException(request.project_id);
             var deploy = project.Deploys.FirstOrDefault(d => d.Id == request.deploy_id)
                 ?? throw new DeployNotFoundException(request.deploy_id);
-            if(deploy.DeployInstances.Any(i => i.Instance.Name.ToLower() == request.dto.Name.ToLower())) 
-                throw new InstanceAlreadyAssignedToDeployException(deploy.Id,request.dto.Name);
-            var instanceToAssign = project.Instances.FirstOrDefault(p => p.Name.ToLower() == request.dto.Name.ToLower())
-                ?? throw new InstanceNotFoundException(request.dto.Name);
+            if(deploy.DeployInstances.Any(i => i.Instance.Id == request.dto.InstanceId)) 
+                throw new InstanceAlreadyAssignedToDeployException(deploy.Id,request.dto.InstanceId);
+            var instanceToAssign = project.Instances.FirstOrDefault(i => i.Id == request.dto.InstanceId)
+                ?? throw new InstanceNotFoundException(request.dto.InstanceId);
             var deployInstance = new DeployInstance();
             deployInstance.Instance = instanceToAssign;
             deployInstance.Deploy = deploy;

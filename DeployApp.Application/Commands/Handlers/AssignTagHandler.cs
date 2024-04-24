@@ -1,4 +1,5 @@
-﻿using DeployApp.Application.Dtos;
+﻿using DeployApp.Application.Abstractions;
+using DeployApp.Application.Dtos;
 using DeployApp.Application.Exceptions;
 using DeployApp.Application.Repositories;
 using DeployApp.Domain.Entities;
@@ -12,18 +13,21 @@ namespace DeployApp.Application.Commands.Handlers
         private readonly ITagRepository _tagRepository;
         private readonly IInstanceRepository _instanceRepository;
         private readonly IMediator _mediator;
+        private readonly ITransactionHandler _transactionHandler;
 
         public AssignTagHandler(
             IProjectRepository projectRepository,
             ITagRepository tagRepository,
             IInstanceRepository instanceRepository,
-            IMediator mediator
+            IMediator mediator,
+            ITransactionHandler transactionHandler
             )
         {
             _projectRepository = projectRepository;
             _tagRepository = tagRepository;
             _instanceRepository = instanceRepository;
             _mediator = mediator;
+            _transactionHandler = transactionHandler;
         }
 
         public async Task Handle(AssignTag request, CancellationToken cancellationToken)
@@ -37,18 +41,29 @@ namespace DeployApp.Application.Commands.Handlers
                 throw new TagWithNameAlreadyAssignedToInstanceException(request.instance_id, dtoNameToUpper);
             var tag = await _tagRepository.GetTagByNameAsync(dtoNameToUpper);
             var instanceTag = new InstanceTag();
-            instanceTag.Instance = instance;
-            if (tag is null)
+
+            using var transaction = _transactionHandler.BeginTransaction();
+            try
             {
-                var command = new CreateTag(new CreateTagDto(dtoNameToUpper, request.dto.Description));
-                var id = await _mediator.Send(command);               
-                instanceTag.TagId = id;
+                instanceTag.Instance = instance;
+                if (tag is null)
+                {
+                    var command = new CreateTag(new CreateTagDto(dtoNameToUpper, request.dto.Description));
+                    var id = await _mediator.Send(command);
+                    instanceTag.TagId = id;
+                }
+                else
+                    instanceTag.Tag = tag;
+
+                instance.InstanceTags.Add(instanceTag);
+                await _instanceRepository.UpdateInstanceAsync(instance);
+
+                transaction.Commit();
             }
-            else
-                instanceTag.Tag = tag;
-          
-            instance.InstanceTags.Add(instanceTag);
-            await _instanceRepository.UpdateInstanceAsync(instance);
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
         }
     }
 }

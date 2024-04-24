@@ -130,7 +130,7 @@ namespace DeployApp.Infrastructure.Repositories
                         .ThenInclude(i => i.Type)
             .FirstOrDefaultAsync(p => p.Id == id);
 
-        public Task<Project> GetProjectWithInstancesAndDeploysWithInstancesByIdAsnyc(int id)
+        public Task<Project> GetProjectWithInstancesAndDeploysWithInstancesByIdAsync(int id)
             => _context.Projects
                 .Include(p => p.Deploys)
                     .ThenInclude(d => d.DeployInstances)

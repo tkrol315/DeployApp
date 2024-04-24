@@ -18,6 +18,6 @@ namespace DeployApp.Application.Repositories
         Task<Project> GetProjectWithDeploysByIdAsync(int id);
         Task<Project> GetProjectWithDeploysAndProjectVersionsByIdAsync(int id);
         Task<Project> GetProjectWithDeployAndInstancesAsync(int id);
-        Task<Project> GetProjectWithInstancesAndDeploysWithInstancesByIdAsnyc(int id);
+        Task<Project> GetProjectWithInstancesAndDeploysWithInstancesByIdAsync(int id);
     }
 }

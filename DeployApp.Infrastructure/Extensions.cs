@@ -20,6 +20,7 @@ namespace DeployApp.Infrastructure
             services.AddScoped<IInstanceRepository, InstanceRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IProjectVersionConverter, ProjectVersionConverter>();
+            services.AddScoped<ITransactionHandler, TransactionHandler>();
             return services;
         }
     }

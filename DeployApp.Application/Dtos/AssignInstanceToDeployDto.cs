@@ -1,7 +1,7 @@
 ﻿namespace DeployApp.Application.Dtos
 {
     public record AssignInstanceToDeployDto(
-        string Name,
+        int InstanceId,
         string Status
         );
 }
