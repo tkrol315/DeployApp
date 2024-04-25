@@ -137,11 +137,26 @@ namespace DeployApp.Api.Controllers
             return Ok(dto);
         }
         [HttpPost("{project_id}/deploys/{deploy_id}/instances")]
-        public async Task<IActionResult> AssignInstanceToDeploy([FromRoute] int project_id, [FromRoute] int deploy_id, [FromBody] AssignInstanceToDeployDto dto)
+        public async Task<IActionResult> AssignInstanceToDeploy(
+            [FromRoute] int project_id, [FromRoute] int deploy_id, [FromBody] AssignInstanceToDeployDto dto)
         {
             var command = new AssignInstanceToDeploy(project_id, deploy_id, dto);
             var id = await _mediator.Send(command);
             return CreatedAtAction(nameof(GetDeployInstance), new { project_id = project_id, deploy_id = deploy_id, instance_id = id}, null);
+        }
+        [HttpPut("{project_id}/deploys/{deploy_id}/instances/{instance_id}")]
+        public async Task<IActionResult> UpdateDeployInstance(
+            [FromRoute] int project_id, [FromRoute] int deploy_id, [FromRoute] int instance_id, [FromBody] UpdateInstanceDto dto)
+        {
+            var command = new UpdateDeployInstance(project_id,deploy_id,instance_id,dto);
+            await _mediator.Send(command);
+            return Ok();
+        }
+        [HttpDelete("{project_id}/deploys/{deploy_id}/instances/{instance_id}")]
+        public async Task<IActionResult> RemoveDeployInstance([FromRoute] RemoveDeployInstance command)
+        {
+            await _mediator.Send(command);
+            return NoContent();
         }
     }
 }

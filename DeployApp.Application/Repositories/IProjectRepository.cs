@@ -4,6 +4,7 @@ namespace DeployApp.Application.Repositories
 {
     public interface IProjectRepository
     {
+        Task<bool> ProjectWithIdExistsAsync(int id);
         Task<bool> ProjectWithTitleAlreadyExistsAsync(string title);
         Task<int> CreateProjectAsync(Project project);
         IQueryable<Project> GetProjectsAsIQueryable();

@@ -1,0 +1,41 @@
+2024-04-25 10:00:05.378 +02:00 [INF] "2024-04-25T10:00:05.3777465+02:00" | Starting request /swagger/index.html
+2024-04-25 10:02:42.983 +02:00 [INF]  | Starting request /swagger/index.html |
+2024-04-25 10:03:25.997 +02:00 [INF]  | Starting request /swagger/index.html |
+2024-04-25 10:06:11.933 +02:00 [INF]  | Starting request /swagger/index.html |
+2024-04-25 10:11:55.087 +02:00 [INF] Starting request /swagger/index.html
+2024-04-25 10:13:34.477 +02:00 [INF] Starting request /swagger/index.html
+2024-04-25 10:16:43.466 +02:00 [INF] Starting request /swagger/index.html
+2024-04-25 10:16:54.267 +02:00 [INF] Starting request /deployapp/projects/16/instances
+2024-04-25 10:16:54.913 +02:00 [ERR] Error | StatusCode: 404 ErrorMessage: Project with id: 16 not found
+2024-04-25 10:18:08.608 +02:00 [INF] Starting request /swagger/index.html
+2024-04-25 10:18:47.879 +02:00 [INF] Starting request /deployapp/groups/15
+2024-04-25 10:18:48.089 +02:00 [ERR] StatusCode: 404 | ErrorMessage: Group with id: 15, not found
+2024-04-25 10:20:03.397 +02:00 [INF] Starting request /swagger/index.html
+2024-04-25 10:22:46.863 +02:00 [INF] Starting request 
+2024-04-25 10:27:41.696 +02:00 [INF] Starting request /swagger/index.html
+2024-04-25 10:29:40.243 +02:00 [INF] Starting request /swagger/index.html
+2024-04-25 10:30:49.886 +02:00 [INF] Starting request /swagger
+2024-04-25 10:31:42.867 +02:00 [INF] Starting request /swagger/index.html
+2024-04-25 10:34:12.609 +02:00 [INF] Starting request /swagger/index.html
+2024-04-25 10:36:04.473 +02:00 [INF] Starting request /swagger/index.html
+2024-04-25 10:39:40.968 +02:00 [INF] Starting request /deployapp/groups/15
+2024-04-25 10:39:41.709 +02:00 [ERR] StatusCode: 404 | ErrorMessage: Group with id: 15, not found
+2024-04-25 10:41:05.174 +02:00 [INF] Starting request /deployapp/groups/15
+2024-04-25 10:41:05.946 +02:00 [ERR] ErrorCode: 404 | ErrorMessage: Group with id: 15, not found
+2024-04-25 10:44:29.006 +02:00 [INF] Starting request /deployapp/projects/1/instances/2
+2024-04-25 10:45:56.207 +02:00 [INF] Starting request [PUT] /deployapp/projects/1/instances/2
+2024-04-25 10:47:11.470 +02:00 [INF] Starting request [GET] /deployapp/groups/1
+2024-04-25 10:48:10.394 +02:00 [INF] Starting request [GET] /deployapp/groups/13
+2024-04-25 10:48:11.110 +02:00 [ERR] ErrorCode: 404 | ErrorMessage: Group with id: 13, not found
+2024-04-25 10:50:05.844 +02:00 [INF] Starting request [GET] /deployapp/projects/1/instances/2
+2024-04-25 10:52:44.610 +02:00 [INF] Starting request [GET] /deployapp/groups/12
+2024-04-25 10:52:45.301 +02:00 [ERR] ErrorCode: 404 | ErrorMessage: Group with id: 12, not found
+2024-04-25 10:52:47.858 +02:00 [INF] Starting request [GET] /deployapp/groups/1
+2024-04-25 10:53:42.381 +02:00 [INF] Starting request [PUT] /deployapp/projects/1
+2024-04-25 10:53:51.026 +02:00 [INF] Starting request [PUT] /deployapp/projects/1
+2024-04-25 11:02:15.185 +02:00 [INF] Starting request [PUT] /deployapp/projects/1/instances/2
+2024-04-25 11:12:51.285 +02:00 [INF] Starting request [GET] /deployapp/projects/1
+2024-04-25 11:13:05.627 +02:00 [INF] Starting request [GET] /deployapp/projects/1/instances
+2024-04-25 11:13:33.155 +02:00 [INF] Starting request [POST] /deployapp/projects/1/instances/2/groups
+2024-04-25 11:16:30.161 +02:00 [INF] Starting request [POST] /deployapp/projects/1/instances/2/groups
+2024-04-25 11:17:11.689 +02:00 [INF] Starting request [POST] /deployapp/projects/1/instances/2/groups

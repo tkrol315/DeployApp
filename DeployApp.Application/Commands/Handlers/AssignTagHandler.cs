@@ -63,6 +63,7 @@ namespace DeployApp.Application.Commands.Handlers
             catch (Exception ex)
             {
                 transaction.Rollback();
+                throw new Exception();
             }
         }
     }

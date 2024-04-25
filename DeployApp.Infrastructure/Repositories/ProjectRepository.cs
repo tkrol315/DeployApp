@@ -138,6 +138,7 @@ namespace DeployApp.Infrastructure.Repositories
                 .Include(p => p.Instances)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
-
+        public Task<bool> ProjectWithIdExistsAsync(int id)
+            => _context.Projects.AnyAsync( p => p.Id == id);
     }
 }

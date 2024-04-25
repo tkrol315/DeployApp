@@ -9,17 +9,24 @@ namespace DeployApp.Application.Queries.Handlers
 {
     public class GetInstancesAsDtosHandler : IRequestHandler<GetInstancesAsDtos, List<GetInstanceDto>>
     {
+        private readonly IProjectRepository _projectRepository;
         private readonly IInstanceRepository _instanceRepository;
         private readonly IProjectVersionConverter _converter;
 
-        public GetInstancesAsDtosHandler(IInstanceRepository instanceRepository, IProjectVersionConverter converter)
+        public GetInstancesAsDtosHandler(
+            IInstanceRepository instanceRepository,
+            IProjectVersionConverter converter,
+            IProjectRepository projectRepository)
         {
             _instanceRepository = instanceRepository;
             _converter = converter;
+            _projectRepository = projectRepository;
         }
 
         public async Task<List<GetInstanceDto>> Handle(GetInstancesAsDtos request, CancellationToken cancellationToken)
         {
+            if (!await _projectRepository.ProjectWithIdExistsAsync(request.projectId))
+                throw new ProjectNotFoundException(request.projectId);
             var instances = _instanceRepository.GetAllAsIQueryable(request.projectId);
 
             if (!string.IsNullOrEmpty(request.searchPhrase.TagName))
