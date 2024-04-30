@@ -21,6 +21,7 @@ namespace DeployApp.Infrastructure.EF.Configuration
                 .HasColumnOrder(2);
             builder.Property(i => i.Name)
                 .HasColumnName("name_004")
+                .HasColumnType("varchar(100)")
                 .HasColumnOrder(3);
             builder.Property(i => i.Key)
                 .HasColumnName("key_004")

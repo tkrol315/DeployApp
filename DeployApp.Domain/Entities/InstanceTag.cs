@@ -1,4 +1,6 @@
-﻿namespace DeployApp.Domain.Entities
+﻿using System.Reflection.Metadata.Ecma335;
+
+namespace DeployApp.Domain.Entities
 {
     public class InstanceTag
     {

@@ -15,12 +15,14 @@ namespace DeployApp.Infrastructure.EF.Configuration
                 .HasColumnOrder(0);
             builder.Property(t => t.Name)
                 .HasColumnName("name_010")
+                .HasColumnType("varchar(100)")
                 .HasColumnOrder(1)
                 .IsRequired();
             builder.HasIndex(t => t.Name)
                 .IsUnique();
             builder.Property(t => t.Description)
                 .HasColumnName("description_010")
+                .HasColumnType("varchar(250)")
                 .HasColumnOrder (2);
         }
     }

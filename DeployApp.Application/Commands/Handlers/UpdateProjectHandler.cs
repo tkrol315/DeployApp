@@ -19,7 +19,7 @@ namespace DeployApp.Application.Commands.Handlers
                 ?? throw new ProjectNotFoundException(request.project_id);
             if (project.Title != request.dto.Title)
                 if (await _projectRepository.ProjectWithTitleAlreadyExistsAsync(request.dto.Title))
-                    throw new ProjectWithNameAlreadyExistsException(request.dto.Title);
+                    throw new ProjectWithTitleAlreadyExistsException(request.dto.Title);
             project.Title = request.dto.Title;
             project.Description = request.dto.Description;
             project.IsActive = request.dto.IsActive;

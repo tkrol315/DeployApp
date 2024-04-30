@@ -7,9 +7,9 @@ using DeployApp.Domain.Entities;
 using FluentAssertions;
 using Moq;
 
-namespace DeployApp.UnitTests.CommandHandlers
+namespace DeployApp.UnitTests.CreateCommandHandlers
 {
-    public class CreateTagHandlerTest
+    public class CreateTagHandlerTests
     {
         private readonly Mock<ITagRepository> _tagRepoMock = new();
 
@@ -26,6 +26,8 @@ namespace DeployApp.UnitTests.CommandHandlers
             var newTagId = await createTagHandler.Handle(createTagCommand, CancellationToken.None);
 
             newTagId.Should().Be(1);
+            _tagRepoMock.Verify(x => x.TagWithNameAlreadyExistsAsync(It.IsAny<string>()), Times.Once);
+            _tagRepoMock.Verify(x => x.AddTagAsync(It.IsAny<Tag>()), Times.Once);
         }
 
         [Fact]
@@ -40,6 +42,10 @@ namespace DeployApp.UnitTests.CommandHandlers
             var act = ()=> createTagHandler.Handle(createTagCommand, CancellationToken.None);
 
             await act.Should().ThrowAsync<TagWithNameAlreadyExistsException>();
+            _tagRepoMock.Verify(x => x.TagWithNameAlreadyExistsAsync(It.IsAny<string>()), Times.Once);
+            _tagRepoMock.Verify(x => x.AddTagAsync(It.IsAny<Tag>()), Times.Never);
         }
+
+      
     }
 }

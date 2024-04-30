@@ -2,9 +2,9 @@
 
 namespace DeployApp.Application.Exceptions
 {
-    public class ProjectWithNameAlreadyExistsException : DeployAppException
+    public class ProjectWithTitleAlreadyExistsException : DeployAppException
     {
-        public ProjectWithNameAlreadyExistsException(string title)
+        public ProjectWithTitleAlreadyExistsException(string title)
             : base($"Project with title: {title} already exists", 400)
         {
         }

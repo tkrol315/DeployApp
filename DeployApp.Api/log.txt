@@ -39,3 +39,24 @@
 2024-04-25 11:13:33.155 +02:00 [INF] Starting request [POST] /deployapp/projects/1/instances/2/groups
 2024-04-25 11:16:30.161 +02:00 [INF] Starting request [POST] /deployapp/projects/1/instances/2/groups
 2024-04-25 11:17:11.689 +02:00 [INF] Starting request [POST] /deployapp/projects/1/instances/2/groups
+2024-04-30 09:17:02.715 +02:00 [INF] Starting request [POST] /deployapp/projects/1/versions
+2024-04-30 10:20:30.454 +02:00 [INF] Starting request [GET] /deployapp/projects
+2024-04-30 10:20:40.533 +02:00 [INF] Starting request [GET] /deployapp/projects/1/instances
+2024-04-30 10:20:41.208 +02:00 [ERR] ErrorCode: 500 | ErrorMessage: Reading as 'System.Guid' is not supported for fields having DataTypeName 'integer'
+2024-04-30 15:03:17.470 +02:00 [INF] Starting request [POST] /deployapp/groups
+2024-04-30 15:03:24.703 +02:00 [INF] Starting request [POST] /deployapp/groups
+2024-04-30 15:03:37.475 +02:00 [INF] Starting request [POST] /deployapp/groups
+2024-04-30 15:04:02.311 +02:00 [INF] Starting request [POST] /deployapp/groups
+2024-04-30 15:04:23.477 +02:00 [INF] Starting request [POST] /deployapp/tags
+2024-04-30 15:04:28.669 +02:00 [INF] Starting request [POST] /deployapp/tags
+2024-04-30 15:04:44.889 +02:00 [INF] Starting request [GET] /deployapp/tags
+2024-04-30 15:04:49.391 +02:00 [INF] Starting request [POST] /deployapp/tags
+2024-04-30 15:04:56.955 +02:00 [INF] Starting request [GET] /deployapp/tags
+2024-04-30 15:05:15.622 +02:00 [INF] Starting request [GET] /deployapp/groups
+2024-04-30 15:05:39.934 +02:00 [INF] Starting request [POST] /deployapp/groups
+2024-04-30 15:05:41.745 +02:00 [INF] Starting request [POST] /deployapp/groups
+2024-04-30 15:05:50.437 +02:00 [INF] Starting request [POST] /deployapp/groups
+2024-04-30 15:05:53.276 +02:00 [INF] Starting request [GET] /deployapp/groups
+2024-04-30 15:06:20.401 +02:00 [INF] Starting request [PUT] /deployapp/groups/2
+2024-04-30 15:06:27.212 +02:00 [INF] Starting request [PUT] /deployapp/groups/2
+2024-04-30 15:06:34.880 +02:00 [INF] Starting request [GET] /deployapp/groups/2

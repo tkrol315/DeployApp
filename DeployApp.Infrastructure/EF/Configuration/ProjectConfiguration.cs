@@ -15,10 +15,12 @@ namespace DeployApp.Infrastructure.EF.Configuration
                 .HasColumnOrder(0);
             builder.Property(p => p.Title)
                 .HasColumnName("title_001")
+                .HasColumnType("varchar(100)")
                 .HasColumnOrder(1)
                 .IsRequired();
             builder.Property(p => p.Description)
                 .HasColumnName("description_001")
+                .HasColumnType("varchar(250)")
                 .HasColumnOrder(2)
                 .IsRequired();
             builder.Property(p => p.IsActive)
@@ -26,10 +28,12 @@ namespace DeployApp.Infrastructure.EF.Configuration
                 .HasColumnOrder(3);
             builder.Property(p => p.YtCode)
                 .HasColumnName("yt_code_001")
+                .HasColumnType("varchar(10)")
                 .HasColumnOrder(4)
                 .IsRequired();
             builder.Property(p => p.RepositoryUrl)
                 .HasColumnName("repository_url_001")
+                .HasColumnType("varchar(250)")
                 .HasColumnOrder(5)
                 .IsRequired();
             builder.HasIndex(p => p.Title)

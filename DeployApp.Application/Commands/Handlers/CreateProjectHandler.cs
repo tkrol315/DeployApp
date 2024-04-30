@@ -17,7 +17,7 @@ namespace DeployApp.Application.Commands.Handlers
         public async Task<int> Handle(CreateProject request, CancellationToken cancellationToken)
         {
             if (await _projectRepository.ProjectWithTitleAlreadyExistsAsync(request.dto.Title))
-                throw new ProjectWithNameAlreadyExistsException(request.dto.Title);
+                throw new ProjectWithTitleAlreadyExistsException(request.dto.Title);
             var project = new Project()
             {
                 Title = request.dto.Title,
@@ -28,8 +28,7 @@ namespace DeployApp.Application.Commands.Handlers
                 Instances = new List<Instance>(),
                 ProjectVersions = new List<ProjectVersion>()
             };
-            await _projectRepository.CreateProjectAsync(project);
-            return project.Id;
+            return await _projectRepository.CreateProjectAsync(project);
         }
     }
 }

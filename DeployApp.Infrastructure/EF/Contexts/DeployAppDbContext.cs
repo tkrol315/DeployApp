@@ -1,4 +1,5 @@
-﻿using DeployApp.Domain.Entities;
+﻿using DeployApp.Application.Queries;
+using DeployApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeployApp.Infrastructure.EF.Contexts

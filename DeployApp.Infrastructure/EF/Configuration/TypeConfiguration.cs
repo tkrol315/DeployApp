@@ -14,6 +14,7 @@ namespace DeployApp.Infrastructure.EF.Configuration
                 .HasColumnOrder(0);
             builder.Property(t => t.Description)
                 .HasColumnName("description_003")
+                .HasColumnType("varchar(250)")
                 .HasColumnOrder(1)
                 .IsRequired();
         }

@@ -1,7 +1,9 @@
-﻿namespace DeployApp.Application.Dtos
+﻿using DeployApp.Domain.Enums;
+
+namespace DeployApp.Application.Dtos
 {
     public record AssignInstanceToDeployDto(
         int InstanceId,
-        string Status
+        Status Status
         );
 }

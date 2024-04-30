@@ -10,10 +10,14 @@ namespace DeployApp.Application.Commands.Validators
         {
             RuleFor(i => i.TypeDescription)
                 .NotEmpty()
-                .WithMessage("Type description cannot be empty");
+                .WithMessage("Type description cannot be empty")
+                .MaximumLength(250)
+                .WithMessage("Type description cannot be longer then 250 characters");
             RuleFor(i => i.Name)
                 .NotEmpty()
-                .WithMessage("Name cannot be empty");
+                .WithMessage("Name cannot be empty")
+                .MaximumLength(100)
+                .WithMessage("Name cannot be longer then 100 characters");
             RuleFor(i => i.Key)
                 .NotEmpty()
                 .WithMessage("Key cannot be empty");

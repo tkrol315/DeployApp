@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using DeployApp.Application.Commands;
 using DeployApp.Application.Queries;
+using DeployApp.Domain.Enums;
 
 namespace DeployApp.Api.Controllers
 {
@@ -124,7 +125,7 @@ namespace DeployApp.Api.Controllers
             return Ok();
         }
         [HttpGet("{project_id}/deploys/{deploy_id}/instances")]
-        public async Task<ActionResult<List<GetInstanceDto>>> GetDeployInstances([FromRoute] int project_id, [FromRoute] int deploy_id, [FromQuery] string? status)
+        public async Task<ActionResult<List<GetInstanceDto>>> GetDeployInstances([FromRoute] int project_id, [FromRoute] int deploy_id, [FromQuery] Status? status)
         {
             var query = new GetDeployInstancesAsDtos(project_id, deploy_id, status);
             var dtos = await _mediator.Send(query);

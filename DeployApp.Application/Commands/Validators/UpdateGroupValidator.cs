@@ -9,7 +9,12 @@ namespace DeployApp.Application.Commands.Validators
         {
             RuleFor(g => g.Name)
                .NotEmpty()
-               .WithMessage("Group name cannot be empty");
+               .WithMessage("Group name cannot be empty")
+               .MaximumLength(100)
+               .WithMessage("Group name cannot be longer then 100 characters");
+            RuleFor(g => g.Description)
+                .MaximumLength(250)
+                .WithMessage("Group description cannot be longer then 250 characters");
         }
     }
 }

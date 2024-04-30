@@ -12,7 +12,9 @@ namespace DeployApp.Application.Commands.Validators
                 .WithMessage("Version string cannot be empty");
             RuleFor(pv => pv.Description)
                 .NotEmpty()
-                .WithMessage("Description cannot be empty");
+                .WithMessage("Description cannot be empty")
+                .MaximumLength(250)
+                .WithMessage("Description cannot be longer then 250 characters");
         }
     }
 }

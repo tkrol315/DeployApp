@@ -24,7 +24,7 @@ namespace DeployApp.Application.Queries.Handlers
             var deploy = project.Deploys.FirstOrDefault(d => d.Id == request.deploy_id)
                 ?? throw new DeployNotFoundException(request.deploy_id);
             var instances = deploy.DeployInstances
-                .Where(di => string.IsNullOrEmpty(request.status) || di.Status == request.status)
+                .Where(di => !request.status.HasValue || di.Status == request.status.Value)
                 .Select(di =>
                 new GetInstanceDto(
                     di.Instance.Id,
