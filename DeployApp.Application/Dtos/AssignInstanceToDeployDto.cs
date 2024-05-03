@@ -3,7 +3,7 @@
 namespace DeployApp.Application.Dtos
 {
     public record AssignInstanceToDeployDto(
-        int InstanceId,
+        Guid InstanceId,
         Status Status
         );
 }

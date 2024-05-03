@@ -5,7 +5,7 @@ namespace DeployApp.Application.Exceptions
 {
     public class TagWithNameAlreadyAssignedToInstanceException : DeployAppException
     {
-        public TagWithNameAlreadyAssignedToInstanceException(int instanceId, string tagName)
+        public TagWithNameAlreadyAssignedToInstanceException(Guid instanceId, string tagName)
             : base($"Instance with id: {instanceId} already contains tag with name: {tagName}", 400)
         {
         }

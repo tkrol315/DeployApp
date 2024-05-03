@@ -3,6 +3,6 @@
     public record AssignGroupDto
         (
         string Name,
-        string Description
+        string? Description = null
         );
 }

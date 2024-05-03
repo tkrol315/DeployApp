@@ -147,7 +147,7 @@ namespace DeployApp.Api.Controllers
         }
         [HttpPut("{project_id}/deploys/{deploy_id}/instances/{instance_id}")]
         public async Task<IActionResult> UpdateDeployInstance(
-            [FromRoute] int project_id, [FromRoute] int deploy_id, [FromRoute] int instance_id, [FromBody] UpdateInstanceDto dto)
+            [FromRoute] int project_id, [FromRoute] int deploy_id, [FromRoute] Guid instance_id, [FromBody] UpdateInstanceDto dto)
         {
             var command = new UpdateDeployInstance(project_id,deploy_id,instance_id,dto);
             await _mediator.Send(command);

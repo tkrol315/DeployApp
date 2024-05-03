@@ -2,7 +2,7 @@
 {
     public class Instance
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public int ProjectId { get; set; }
         public Project Project { get; set; }
         public int TypeId { get; set; }

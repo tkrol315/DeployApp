@@ -73,8 +73,8 @@ namespace DeployApp.Infrastructure.EF.Migrations
                         .HasColumnName("id_100_101")
                         .HasColumnOrder(0);
 
-                    b.Property<int>("InstanceId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("InstanceId")
+                        .HasColumnType("uuid")
                         .HasColumnName("id_004_101")
                         .HasColumnOrder(1);
 
@@ -121,13 +121,11 @@ namespace DeployApp.Infrastructure.EF.Migrations
 
             modelBuilder.Entity("DeployApp.Domain.Entities.Instance", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("id_004")
                         .HasColumnOrder(0);
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Key")
                         .IsRequired()
@@ -175,8 +173,8 @@ namespace DeployApp.Infrastructure.EF.Migrations
 
             modelBuilder.Entity("DeployApp.Domain.Entities.InstanceGroup", b =>
                 {
-                    b.Property<int>("InstanceId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("InstanceId")
+                        .HasColumnType("uuid")
                         .HasColumnName("id_004_006")
                         .HasColumnOrder(0);
 
@@ -194,8 +192,8 @@ namespace DeployApp.Infrastructure.EF.Migrations
 
             modelBuilder.Entity("DeployApp.Domain.Entities.InstanceTag", b =>
                 {
-                    b.Property<int>("InstanceId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("InstanceId")
+                        .HasColumnType("uuid")
                         .HasColumnName("id_004_005")
                         .HasColumnOrder(0);
 

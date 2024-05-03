@@ -15,7 +15,7 @@ namespace DeployApp.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<int> CreateInstanceAsync(Instance instance)
+        public async Task<Guid> CreateInstanceAsync(Instance instance)
         {
             await _context.Instances.AddAsync(instance);
             await _context.SaveChangesAsync();

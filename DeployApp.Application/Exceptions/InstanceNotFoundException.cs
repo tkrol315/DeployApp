@@ -4,7 +4,7 @@ namespace DeployApp.Application.Exceptions
 {
     public class InstanceNotFoundException : DeployAppException
     {
-        public InstanceNotFoundException(int id) : base($"Instance with id: {id} not found", 404)
+        public InstanceNotFoundException(Guid instanceId) : base($"Instance with id: {instanceId} not found", 404)
         {
         }
         

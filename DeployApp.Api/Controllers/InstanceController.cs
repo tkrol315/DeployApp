@@ -48,7 +48,7 @@ namespace DeployApp.Api.Controllers
 
         [HttpPut("{instance_id}")]
 
-        public async Task<IActionResult> UpdateInstance([FromRoute] int project_id, [FromRoute] int instance_id, [FromBody] UpdateInstanceDto dto)
+        public async Task<IActionResult> UpdateInstance([FromRoute] int project_id, [FromRoute] Guid instance_id, [FromBody] UpdateInstanceDto dto)
         {
             var command = new UpdateInstance(project_id, instance_id, dto);
             await _mediator.Send(command);
@@ -57,7 +57,7 @@ namespace DeployApp.Api.Controllers
 
         [HttpPost("{instance_id}/tags")]
         public async Task<IActionResult> AssignTag(
-            [FromRoute] int project_id, [FromRoute] int instance_id, [FromBody] AssignTagDto dto)
+            [FromRoute] int project_id, [FromRoute] Guid instance_id, [FromBody] AssignTagDto dto)
         {
             var command = new AssignTag(project_id, instance_id, dto);
             await _mediator.Send(command);
@@ -65,7 +65,7 @@ namespace DeployApp.Api.Controllers
         }
         [HttpPost("{instance_id}/groups")]
         public async Task<IActionResult> AssignGroup(
-            [FromRoute] int project_id, [FromRoute] int instance_id, [FromBody] AssignGroupDto dto)
+            [FromRoute] int project_id, [FromRoute] Guid instance_id, [FromBody] AssignGroupDto dto)
         {
             var command = new AssignGroup(project_id,instance_id, dto);
             await _mediator.Send(command);

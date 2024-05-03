@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -17,8 +18,8 @@ namespace DeployApp.Infrastructure.EF.Migrations
                 {
                     id_011 = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    name_011 = table.Column<string>(type: "text", nullable: false),
-                    description_011 = table.Column<string>(type: "text", nullable: true)
+                    name_011 = table.Column<string>(type: "varchar(100)", nullable: false),
+                    description_011 = table.Column<string>(type: "varchar(250)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -31,7 +32,7 @@ namespace DeployApp.Infrastructure.EF.Migrations
                 {
                     id_003 = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    description_003 = table.Column<string>(type: "text", nullable: false)
+                    description_003 = table.Column<string>(type: "varchar(250)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,11 +45,11 @@ namespace DeployApp.Infrastructure.EF.Migrations
                 {
                     id_001 = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    title_001 = table.Column<string>(type: "text", nullable: false),
-                    description_001 = table.Column<string>(type: "text", nullable: false),
+                    title_001 = table.Column<string>(type: "varchar(100)", nullable: false),
+                    description_001 = table.Column<string>(type: "varchar(250)", nullable: false),
                     is_active_001 = table.Column<bool>(type: "boolean", nullable: false),
-                    yt_code_001 = table.Column<string>(type: "text", nullable: false),
-                    repository_url_001 = table.Column<string>(type: "text", nullable: false)
+                    yt_code_001 = table.Column<string>(type: "varchar(10)", nullable: false),
+                    repository_url_001 = table.Column<string>(type: "varchar(250)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,8 +62,8 @@ namespace DeployApp.Infrastructure.EF.Migrations
                 {
                     id_010 = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    name_010 = table.Column<string>(type: "text", nullable: false),
-                    description_010 = table.Column<string>(type: "text", nullable: true)
+                    name_010 = table.Column<string>(type: "varchar(100)", nullable: false),
+                    description_010 = table.Column<string>(type: "varchar(250)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -79,7 +80,7 @@ namespace DeployApp.Infrastructure.EF.Migrations
                     major_002 = table.Column<int>(type: "integer", nullable: false),
                     minor_002 = table.Column<int>(type: "integer", nullable: false),
                     patch_002 = table.Column<int>(type: "integer", nullable: false),
-                    description_002 = table.Column<string>(type: "text", nullable: false)
+                    description_002 = table.Column<string>(type: "varchar(250)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,14 +94,42 @@ namespace DeployApp.Infrastructure.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "deploy_100",
+                columns: table => new
+                {
+                    id_100 = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    id_001_100 = table.Column<int>(type: "integer", nullable: false),
+                    id_002_100 = table.Column<int>(type: "integer", nullable: false),
+                    start_100 = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    end_100 = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    is_active_100 = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_deploy_100", x => x.id_100);
+                    table.ForeignKey(
+                        name: "FK_deploy_100_project_001_id_001_100",
+                        column: x => x.id_001_100,
+                        principalTable: "project_001",
+                        principalColumn: "id_001",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_deploy_100_project_version_002_id_002_100",
+                        column: x => x.id_002_100,
+                        principalTable: "project_version_002",
+                        principalColumn: "id_002",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "instance_004",
                 columns: table => new
                 {
-                    id_004 = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    id_004 = table.Column<Guid>(type: "uuid", nullable: false),
                     id_001_004 = table.Column<int>(type: "integer", nullable: false),
                     id_003_004 = table.Column<int>(type: "integer", nullable: false),
-                    name_004 = table.Column<string>(type: "text", nullable: true),
+                    name_004 = table.Column<string>(type: "varchar(100)", nullable: true),
                     key_004 = table.Column<string>(type: "text", nullable: false),
                     secret_004 = table.Column<string>(type: "text", nullable: false),
                     id_002_actual_004 = table.Column<int>(type: "integer", nullable: true)
@@ -128,10 +157,35 @@ namespace DeployApp.Infrastructure.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "deploy_instance_101",
+                columns: table => new
+                {
+                    id_100_101 = table.Column<int>(type: "integer", nullable: false),
+                    id_004_101 = table.Column<Guid>(type: "uuid", nullable: false),
+                    status_101 = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_deploy_instance_101", x => new { x.id_100_101, x.id_004_101 });
+                    table.ForeignKey(
+                        name: "FK_deploy_instance_101_deploy_100_id_100_101",
+                        column: x => x.id_100_101,
+                        principalTable: "deploy_100",
+                        principalColumn: "id_100",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_deploy_instance_101_instance_004_id_004_101",
+                        column: x => x.id_004_101,
+                        principalTable: "instance_004",
+                        principalColumn: "id_004",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "instance_group_006",
                 columns: table => new
                 {
-                    id_004_006 = table.Column<int>(type: "integer", nullable: false),
+                    id_004_006 = table.Column<Guid>(type: "uuid", nullable: false),
                     id_011_006 = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -155,7 +209,7 @@ namespace DeployApp.Infrastructure.EF.Migrations
                 name: "instance_tag_005",
                 columns: table => new
                 {
-                    id_004_005 = table.Column<int>(type: "integer", nullable: false),
+                    id_004_005 = table.Column<Guid>(type: "uuid", nullable: false),
                     id_010_005 = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -174,6 +228,21 @@ namespace DeployApp.Infrastructure.EF.Migrations
                         principalColumn: "id_010",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_deploy_100_id_001_100",
+                table: "deploy_100",
+                column: "id_001_100");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_deploy_100_id_002_100",
+                table: "deploy_100",
+                column: "id_002_100");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_deploy_instance_101_id_004_101",
+                table: "deploy_instance_101",
+                column: "id_004_101");
 
             migrationBuilder.CreateIndex(
                 name: "IX_group_011_name_011",
@@ -229,10 +298,16 @@ namespace DeployApp.Infrastructure.EF.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "deploy_instance_101");
+
+            migrationBuilder.DropTable(
                 name: "instance_group_006");
 
             migrationBuilder.DropTable(
                 name: "instance_tag_005");
+
+            migrationBuilder.DropTable(
+                name: "deploy_100");
 
             migrationBuilder.DropTable(
                 name: "group_011");

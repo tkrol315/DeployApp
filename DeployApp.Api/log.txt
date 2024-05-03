@@ -60,3 +60,11 @@
 2024-04-30 15:06:20.401 +02:00 [INF] Starting request [PUT] /deployapp/groups/2
 2024-04-30 15:06:27.212 +02:00 [INF] Starting request [PUT] /deployapp/groups/2
 2024-04-30 15:06:34.880 +02:00 [INF] Starting request [GET] /deployapp/groups/2
+2024-05-02 10:50:47.240 +02:00 [INF] Starting request [POST] /deployapp/projects
+2024-05-02 10:50:54.070 +02:00 [INF] Starting request [GET] /deployapp/projects
+2024-05-02 10:51:09.895 +02:00 [INF] Starting request [POST] /deployapp/projects/1/instances
+2024-05-02 10:51:15.829 +02:00 [INF] Starting request [GET] /deployapp/projects/1/instances
+2024-05-02 12:05:04.080 +02:00 [INF] Starting request [GET] /deployapp/projects/1/instances/b55fa4d1-8eeb-47bf-bb61-98f151c195d8
+2024-05-02 12:05:38.347 +02:00 [INF] Starting request [POST] /deployapp/projects/1/instances/b55fa4d1-8eeb-47bf-bb61-98f151c195d8/tags
+2024-05-02 12:05:53.474 +02:00 [INF] Starting request [GET] /deployapp/projects/1/instances/b55fa4d1-8eeb-47bf-bb61-98f151c195d8
+2024-05-02 12:40:06.032 +02:00 [INF] Starting request [POST] /deployapp/projects/1/instances

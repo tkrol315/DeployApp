@@ -11,6 +11,7 @@ namespace DeployApp.Infrastructure.EF.Configuration
             builder.ToTable("instance_group_006");
             builder.HasKey(ig => new { ig.InstanceId, ig.GroupId });
             builder.Property(ig => ig.InstanceId)
+                .HasColumnType("uuid")
                 .HasColumnName("id_004_006")
                 .HasColumnOrder(0);
             builder.Property(ig => ig.GroupId)

@@ -15,6 +15,7 @@ namespace DeployApp.Infrastructure.EF.Configuration
                 .HasColumnName("id_100_101")
                 .HasColumnOrder(0);
             builder.Property(di => di.InstanceId)
+                .HasColumnType("uuid")
                 .HasColumnName("id_004_101")
                 .HasColumnOrder(1);
             builder.Property(di => di.Status)

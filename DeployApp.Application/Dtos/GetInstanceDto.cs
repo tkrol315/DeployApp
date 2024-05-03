@@ -3,7 +3,7 @@
 namespace DeployApp.Application.Dtos
 {
     public record GetInstanceDto(
-        int Id,
+        Guid Id,
         int ProjectId,
         string TypeDescription,
         string Name,

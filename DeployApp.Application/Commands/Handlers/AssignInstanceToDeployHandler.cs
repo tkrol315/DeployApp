@@ -5,7 +5,7 @@ using MediatR;
 
 namespace DeployApp.Application.Commands.Handlers
 {
-    public class AssignInstanceToDeployHandler : IRequestHandler<AssignInstanceToDeploy, int>
+    public class AssignInstanceToDeployHandler : IRequestHandler<AssignInstanceToDeploy, Guid>
     {
         private readonly IProjectRepository _projectRepository;
 
@@ -14,7 +14,7 @@ namespace DeployApp.Application.Commands.Handlers
             _projectRepository = projectRepository;
         }
 
-        public async Task<int> Handle(AssignInstanceToDeploy request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(AssignInstanceToDeploy request, CancellationToken cancellationToken)
         {
             var project = await _projectRepository.GetProjectWithInstancesAndDeploysWithInstancesByIdAsync(request.project_id)
                 ?? throw new ProjectNotFoundException(request.project_id);

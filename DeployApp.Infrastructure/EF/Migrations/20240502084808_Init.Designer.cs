@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DeployApp.Infrastructure.EF.Migrations
 {
     [DbContext(typeof(DeployAppDbContext))]
-    [Migration("20240421143844_Deploy_And_Deploy_Instance_Added")]
-    partial class Deploy_And_Deploy_Instance_Added
+    [Migration("20240502084808_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,13 +76,13 @@ namespace DeployApp.Infrastructure.EF.Migrations
                         .HasColumnName("id_100_101")
                         .HasColumnOrder(0);
 
-                    b.Property<int>("InstanceId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("InstanceId")
+                        .HasColumnType("uuid")
                         .HasColumnName("id_004_101")
                         .HasColumnOrder(1);
 
-                    b.Property<string>("Status")
-                        .HasColumnType("text")
+                    b.Property<int>("Status")
+                        .HasColumnType("integer")
                         .HasColumnName("status_101")
                         .HasColumnOrder(2);
 
@@ -104,13 +104,13 @@ namespace DeployApp.Infrastructure.EF.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .HasColumnType("text")
+                        .HasColumnType("varchar(250)")
                         .HasColumnName("description_011")
                         .HasColumnOrder(2);
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("name_011")
                         .HasColumnOrder(1);
 
@@ -124,13 +124,11 @@ namespace DeployApp.Infrastructure.EF.Migrations
 
             modelBuilder.Entity("DeployApp.Domain.Entities.Instance", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("id_004")
                         .HasColumnOrder(0);
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Key")
                         .IsRequired()
@@ -139,7 +137,7 @@ namespace DeployApp.Infrastructure.EF.Migrations
                         .HasColumnOrder(4);
 
                     b.Property<string>("Name")
-                        .HasColumnType("text")
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("name_004")
                         .HasColumnOrder(3);
 
@@ -178,8 +176,8 @@ namespace DeployApp.Infrastructure.EF.Migrations
 
             modelBuilder.Entity("DeployApp.Domain.Entities.InstanceGroup", b =>
                 {
-                    b.Property<int>("InstanceId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("InstanceId")
+                        .HasColumnType("uuid")
                         .HasColumnName("id_004_006")
                         .HasColumnOrder(0);
 
@@ -197,8 +195,8 @@ namespace DeployApp.Infrastructure.EF.Migrations
 
             modelBuilder.Entity("DeployApp.Domain.Entities.InstanceTag", b =>
                 {
-                    b.Property<int>("InstanceId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("InstanceId")
+                        .HasColumnType("uuid")
                         .HasColumnName("id_004_005")
                         .HasColumnOrder(0);
 
@@ -226,7 +224,7 @@ namespace DeployApp.Infrastructure.EF.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasColumnType("varchar(250)")
                         .HasColumnName("description_001")
                         .HasColumnOrder(2);
 
@@ -237,19 +235,19 @@ namespace DeployApp.Infrastructure.EF.Migrations
 
                     b.Property<string>("RepositoryUrl")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasColumnType("varchar(250)")
                         .HasColumnName("repository_url_001")
                         .HasColumnOrder(5);
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("title_001")
                         .HasColumnOrder(1);
 
                     b.Property<string>("YtCode")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasColumnType("varchar(10)")
                         .HasColumnName("yt_code_001")
                         .HasColumnOrder(4);
 
@@ -273,7 +271,7 @@ namespace DeployApp.Infrastructure.EF.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasColumnType("varchar(250)")
                         .HasColumnName("description_002")
                         .HasColumnOrder(5);
 
@@ -315,13 +313,13 @@ namespace DeployApp.Infrastructure.EF.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .HasColumnType("text")
+                        .HasColumnType("varchar(250)")
                         .HasColumnName("description_010")
                         .HasColumnOrder(2);
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("name_010")
                         .HasColumnOrder(1);
 
@@ -345,7 +343,7 @@ namespace DeployApp.Infrastructure.EF.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasColumnType("varchar(250)")
                         .HasColumnName("description_003")
                         .HasColumnOrder(1);
 

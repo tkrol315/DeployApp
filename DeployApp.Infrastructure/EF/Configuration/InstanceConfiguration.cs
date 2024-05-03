@@ -11,6 +11,7 @@ namespace DeployApp.Infrastructure.EF.Configuration
             builder.ToTable("instance_004");
             builder.HasKey(i => i.Id);
             builder.Property(i => i.Id)
+                .HasColumnType("uuid")
                 .HasColumnName("id_004")
                 .HasColumnOrder(0);
             builder.Property(i => i.ProjectId)

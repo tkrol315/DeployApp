@@ -3,5 +3,5 @@ using MediatR;
 
 namespace DeployApp.Application.Commands
 {
-    public record AssignGroup(int project_id, int instance_id, AssignGroupDto dto) : IRequest;
+    public record AssignGroup(int project_id, Guid instance_id, AssignGroupDto dto) : IRequest;
 }

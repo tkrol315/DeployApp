@@ -6,7 +6,7 @@ namespace DeployApp.Domain.Entities
     {
         public int DeployId { get; set; }
         public Deploy Deploy { get; set; }
-        public int InstanceId { get; set; }
+        public Guid InstanceId { get; set; }
         public Instance Instance { get; set; }
         public Status Status { get; set; }
     }

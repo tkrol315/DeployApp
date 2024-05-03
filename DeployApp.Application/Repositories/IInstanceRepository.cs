@@ -6,7 +6,7 @@ namespace DeployApp.Application.Repositories
     public interface IInstanceRepository
     {
         IQueryable<Instance> GetAllAsIQueryable(int projectId);
-        Task<int> CreateInstanceAsync(Instance instance);
+        Task<Guid> CreateInstanceAsync(Instance instance);
         Task UpdateInstanceAsync(Instance instance);
         Task<bool> InstanceWithNameAlreadyExists(int projectId, string name);
     }
