@@ -8,6 +8,7 @@ using DeployApp.Domain.Entities;
 using FluentAssertions;
 using MediatR;
 using Moq;
+using System.Data;
 
 namespace DeployApp.UnitTests.AssignCommandHandlers
 {
@@ -18,6 +19,12 @@ namespace DeployApp.UnitTests.AssignCommandHandlers
         private readonly Mock<IMediator> _mediatorMock = new();
         private readonly Mock<IGroupRepository> _groupRepositoryMock = new();
         private readonly Mock<ITransactionHandler> _transactionHandlerMock = new();
+        private readonly Mock<IDbTransaction> _dbTransactionMock = new();
+
+        public AssignGroupHandlerTests()
+        {
+            _transactionHandlerMock.Setup(x => x.BeginTransaction()).Returns(_dbTransactionMock.Object);
+        }
 
         [Fact]
         public async Task Handle_Assign_Group_To_Instance_When_Group_Already_Exists_Success()
@@ -53,6 +60,8 @@ namespace DeployApp.UnitTests.AssignCommandHandlers
             _groupRepositoryMock.Verify(x => x.GetGroupByNameAsync(It.IsAny<string>()), Times.Once);
             _instanceRepositoryMock.Verify(x => x.UpdateInstanceAsync(It.IsAny<Instance>()), Times.Once);
             _mediatorMock.Verify(x => x.Send(It.IsAny<CreateGroup>(),CancellationToken.None), Times.Never);
+            _transactionHandlerMock.Verify(x => x.BeginTransaction(), Times.Once);
+            _dbTransactionMock.Verify(x => x.Commit(), Times.Once);
         }
 
         [Fact]
@@ -87,6 +96,8 @@ namespace DeployApp.UnitTests.AssignCommandHandlers
             _groupRepositoryMock.Verify(x => x.GetGroupByNameAsync(It.IsAny<string>()), Times.Once);
             _instanceRepositoryMock.Verify(x => x.UpdateInstanceAsync(It.IsAny<Instance>()), Times.Once);
             _mediatorMock.Verify(x => x.Send(It.IsAny<CreateGroup>(), CancellationToken.None), Times.Once);
+            _transactionHandlerMock.Verify(x => x.BeginTransaction(), Times.Once);
+            _dbTransactionMock.Verify(x => x.Commit(), Times.Once);
         }
 
         [Fact]
@@ -109,6 +120,8 @@ namespace DeployApp.UnitTests.AssignCommandHandlers
             _groupRepositoryMock.Verify(x => x.GetGroupByNameAsync(It.IsAny<string>()), Times.Never);
             _instanceRepositoryMock.Verify(x => x.UpdateInstanceAsync(It.IsAny<Instance>()), Times.Never);
             _mediatorMock.Verify(x => x.Send(It.IsAny<CreateGroup>(), CancellationToken.None), Times.Never);
+            _transactionHandlerMock.Verify(x => x.BeginTransaction(), Times.Never);
+            _dbTransactionMock.Verify(x => x.Commit(), Times.Never);
         }
 
         [Fact]
@@ -137,6 +150,8 @@ namespace DeployApp.UnitTests.AssignCommandHandlers
             _groupRepositoryMock.Verify(x => x.GetGroupByNameAsync(It.IsAny<string>()), Times.Never);
             _instanceRepositoryMock.Verify(x => x.UpdateInstanceAsync(It.IsAny<Instance>()), Times.Never);
             _mediatorMock.Verify(x => x.Send(It.IsAny<CreateGroup>(), CancellationToken.None), Times.Never);
+            _transactionHandlerMock.Verify(x => x.BeginTransaction(), Times.Never);
+            _dbTransactionMock.Verify(x => x.Commit(), Times.Never);
         }
 
         [Fact]
@@ -180,6 +195,8 @@ namespace DeployApp.UnitTests.AssignCommandHandlers
             _groupRepositoryMock.Verify(x => x.GetGroupByNameAsync(It.IsAny<string>()), Times.Never);
             _instanceRepositoryMock.Verify(x => x.UpdateInstanceAsync(It.IsAny<Instance>()), Times.Never);
             _mediatorMock.Verify(x => x.Send(It.IsAny<CreateGroup>(), CancellationToken.None), Times.Never);
+            _transactionHandlerMock.Verify(x => x.BeginTransaction(), Times.Never);
+            _dbTransactionMock.Verify(x => x.Commit(), Times.Never);
         }
     }
 }
