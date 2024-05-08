@@ -3,7 +3,6 @@ using DeployApp.Application.Dtos;
 using DeployApp.Application.Exceptions;
 using DeployApp.Application.Repositories;
 using MediatR;
-using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace DeployApp.Application.Queries.Handlers
 {
