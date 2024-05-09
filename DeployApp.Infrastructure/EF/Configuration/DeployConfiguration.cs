@@ -25,9 +25,13 @@ namespace DeployApp.Infrastructure.EF.Configuration
             builder.Property(d => d.End)
                 .HasColumnName("end_100")
                 .HasColumnOrder(4);
+            builder.Property(d => d.Description)
+                .HasColumnName("description_100")
+                .HasColumnType("varchar(250)")
+                .HasColumnOrder(5);
             builder.Property(d => d.IsActive)
                 .HasColumnName("is_active_100")
-                .HasColumnOrder(5);
+                .HasColumnOrder(6);
             builder.HasOne(d => d.ProjectVersion)
                 .WithMany(pv => pv.Deploys)
                 .HasForeignKey(d => d.ProjectVersionId)

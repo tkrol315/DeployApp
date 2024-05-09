@@ -1,0 +1,23 @@
+2024-05-09 11:16:33.752 +02:00 [INF] Starting request [GET] /deployapp/tags
+2024-05-09 11:16:45.119 +02:00 [INF] Starting request [GET] /deployapp/tags/12
+2024-05-09 11:16:45.528 +02:00 [ERR] ErrorCode: 404 | ErrorMessage: Tag with id: 12, not found
+2024-05-09 11:35:33.808 +02:00 [INF] Starting request [POST] /deployapp/projects
+2024-05-09 11:36:21.337 +02:00 [INF] Starting request [POST] /deployapp/projects/1/deploys
+2024-05-09 11:36:21.989 +02:00 [ERR] ErrorCode: 500 | ErrorMessage: 42703: kolumna d.description_100 nie istnieje
+
+POSITION: 202
+2024-05-09 12:38:22.194 +02:00 [INF] Starting request [GET] /deployapp/projects
+2024-05-09 12:38:52.631 +02:00 [INF] Starting request [GET] /deployapp/projects/1/deploys
+2024-05-09 12:39:03.572 +02:00 [INF] Starting request [POST] /deployapp/projects/1/deploys
+2024-05-09 12:39:03.833 +02:00 [ERR] ErrorCode: 404 | ErrorMessage: Project version: test, not found
+2024-05-09 12:39:29.805 +02:00 [INF] Starting request [POST] /deployapp/projects/1/versions
+2024-05-09 12:39:55.855 +02:00 [INF] Starting request [POST] /deployapp/projects/1/deploys
+2024-05-09 12:40:07.655 +02:00 [INF] Starting request [GET] /deployapp/projects/1/deploys
+2024-05-09 12:47:39.209 +02:00 [INF] Starting request [GET] /deployapp/projects/1/versions
+2024-05-09 12:48:00.575 +02:00 [INF] Starting request [GET] /deployapp/projects/1/deploys/1
+2024-05-09 12:48:15.665 +02:00 [INF] Starting request [GET] /deployapp/projects/1/deploys/1
+2024-05-09 12:48:24.985 +02:00 [INF] Starting request [GET] /deployapp/projects/1/deploys
+2024-05-09 12:48:50.383 +02:00 [INF] Starting request [POST] /deployapp/projects/1/deploys
+2024-05-09 12:48:53.489 +02:00 [INF] Starting request [GET] /deployapp/projects/1/deploys/1
+2024-05-09 12:48:58.617 +02:00 [INF] Starting request [GET] /deployapp/projects/1/deploys/2
+2024-05-09 12:49:07.448 +02:00 [INF] Starting request [GET] /deployapp/projects/1/deploys

@@ -4,6 +4,7 @@
         string VersionString,
         DateTime Start,
         DateTime End,
+        string Description,
         bool IsActive
         );
 }

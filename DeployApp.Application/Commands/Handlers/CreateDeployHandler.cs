@@ -24,13 +24,14 @@ namespace DeployApp.Application.Commands.Handlers
             var foundVersion = project.ProjectVersions.FirstOrDefault(pv =>
             _converter.VersionToVersionString(pv.Major, pv.Minor, pv.Patch) == request.dto.VersionString)
                 ?? throw new ProjectVersionNotFoundException(request.dto.VersionString);
-            
+
             var deploy = new Deploy()
             {
                 Project = project,
                 ProjectVersion = foundVersion,
                 Start = request.dto.Start,
                 End = request.dto.End,
+                Description = request.dto.Description,
                 IsActive = request.dto.IsActive,
                 DeployInstances = new List<DeployInstance>()
             };

@@ -34,7 +34,7 @@ namespace DeployApp.UnitTests.CreateCommandHandlers
             _projectVersionConverterMock.Setup(c => c.VersionToVersionString(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
                 .Returns("1.0.0");
 
-            var dto = new CreateDeployDto("1.0.0", It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<bool>());
+            var dto = new CreateDeployDto("1.0.0", It.IsAny<DateTime>(), It.IsAny<DateTime>(),It.IsAny<string>(), It.IsAny<bool>());
             var command = new CreateDeploy(It.IsAny<int>(), dto);
             var handler = new CreateDeployHandler(_projectRepositoryMock.Object, _projectVersionConverterMock.Object);
 
@@ -51,7 +51,7 @@ namespace DeployApp.UnitTests.CreateCommandHandlers
         public async Task Handle_Create_Deploy_Throws_Project_Not_Found_Exception()
         {
           
-            var dto = new CreateDeployDto("1.0.0", It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<bool>());
+            var dto = new CreateDeployDto("1.0.0", It.IsAny<DateTime>(), It.IsAny<DateTime>(),It.IsAny<string>(), It.IsAny<bool>());
             var command = new CreateDeploy(It.IsAny<int>(), dto);
             var handler = new CreateDeployHandler(_projectRepositoryMock.Object, _projectVersionConverterMock.Object);
 
@@ -74,7 +74,7 @@ namespace DeployApp.UnitTests.CreateCommandHandlers
             };
             _projectRepositoryMock.Setup(p => p.GetProjectWithDeploysAndProjectVersionsByIdAsync(It.IsAny<int>())).ReturnsAsync(project);
 
-            var dto = new CreateDeployDto("1.0.0", It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<bool>());
+            var dto = new CreateDeployDto("1.0.0", It.IsAny<DateTime>(), It.IsAny<DateTime>(),It.IsAny<string>(), It.IsAny<bool>());
             var command = new CreateDeploy(It.IsAny<int>(), dto);
             var handler = new CreateDeployHandler(_projectRepositoryMock.Object, _projectVersionConverterMock.Object);
 

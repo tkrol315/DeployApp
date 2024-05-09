@@ -16,6 +16,9 @@ namespace DeployApp.Application.Commands.Validators
             RuleFor(u => u.End)
                .NotEmpty()
                .WithMessage("End cannot be empty");
+            RuleFor(u => u.Description)
+                .NotEmpty()
+                .WithMessage("Description cannot be empty");
             RuleFor(u => u.IsActive)
                .NotEmpty()
                .WithMessage("IsActive cannot be empty");

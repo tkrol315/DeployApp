@@ -2,13 +2,14 @@
 
 namespace DeployApp.Domain.Entities
 {
-    public class DeployInstance
+    public class DeployLog
     {
+        public int Id { get; set; }
         public int DeployId { get; set; }
-        public Deploy Deploy { get; set; }
         public Guid InstanceId { get; set; }
-        public Instance Instance { get; set; }
+        public DeployInstance DeployInstance { get; set; }
+        public DateTime TimeStamp { get; set; }
         public Status Status { get; set; }
-        public ICollection<DeployLog> DeployLogs { get; set; }
+        public string Log { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace DeployApp.Infrastructure.EF.Contexts
         public DbSet<InstanceGroup> InstanceGroups { get; set; }
         public DbSet<Deploy> Deploys { get; set; }
         public DbSet<DeployInstance> DeployInstances { get; set; }
+        public DbSet<DeployLog> DeployLogs { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
             => modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
 

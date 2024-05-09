@@ -16,7 +16,8 @@ namespace DeployApp.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            Log.Logger = new LoggerConfiguration().WriteTo.File("log.txt").CreateLogger();
+            var logFilePath = Environment.CurrentDirectory + configuration.GetSection("Logging")["LogFilePath"];
+            Log.Logger = new LoggerConfiguration().WriteTo.File(logFilePath).CreateLogger();
             var connectionString = configuration.GetSection("Postgres")["ConnectionString"]; 
             services.AddDbContext<DeployAppDbContext>(context => context.UseNpgsql(connectionString));
             services.AddScoped<ITagRepository, TagRepository>();

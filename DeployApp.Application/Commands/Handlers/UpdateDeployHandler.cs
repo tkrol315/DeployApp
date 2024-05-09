@@ -30,6 +30,7 @@ namespace DeployApp.Application.Commands.Handlers
             deploy.ProjectVersion = projectVersion;
             deploy.Start = request.dto.Start;
             deploy.End = request.dto.End;
+            deploy.Description = request.dto.Description;
             deploy.IsActive = request.dto.IsActive;
             await _projectRepository.UpdateProjectAsync(project);
         }

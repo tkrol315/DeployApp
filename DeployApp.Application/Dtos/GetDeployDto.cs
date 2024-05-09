@@ -7,6 +7,7 @@
         string ProjectVersionString,
         DateTime Start,
         DateTime End,
+        string Description,
         bool IsActive
         );
 }

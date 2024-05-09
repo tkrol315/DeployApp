@@ -29,6 +29,7 @@ namespace DeployApp.Application.Queries.Handlers
                 _converter.VersionToVersionString(d.ProjectVersion.Major, d.ProjectVersion.Minor, d.ProjectVersion.Patch),
                 d.Start,
                 d.End,
+                d.Description,
                 d.IsActive)).ToList();
             return dtos;
         }

@@ -30,6 +30,7 @@ namespace DeployApp.Application.Queries.Handlers
                 _converter.VersionToVersionString(deploy.ProjectVersion.Major, deploy.ProjectVersion.Minor, deploy.ProjectVersion.Patch),
                 deploy.Start,
                 deploy.End,
+                deploy.Description,
                 deploy.IsActive
                 );
             return dto;

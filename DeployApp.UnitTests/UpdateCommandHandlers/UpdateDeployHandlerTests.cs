@@ -35,7 +35,7 @@ namespace DeployApp.UnitTests.UpdateCommandHandlers
             _projectRepositoryMock.Setup(p => p.GetProjectWithDeploysByIdAsync(project.Id)).ReturnsAsync(project);
             _versionConverterMock.Setup(v => v.VersionToVersionString(1, 0, 0)).Returns(versionString);
 
-            var dto = new UpdateDeployDto(versionString, It.IsAny<DateTime>(), It.IsAny<DateTime>(), true);
+            var dto = new UpdateDeployDto(versionString, It.IsAny<DateTime>(), It.IsAny<DateTime>(),It.IsAny<string>(), true);
             var command = new UpdateDeploy(project.Id, deployId, dto);
             var handler = new UpdateDeployHandler(_projectRepositoryMock.Object, _versionConverterMock.Object);
 
@@ -49,7 +49,7 @@ namespace DeployApp.UnitTests.UpdateCommandHandlers
         [Fact]
         public async Task Handle_Update_Deploy_Throws_Project_Not_Found_Exception()
         {
-            var dto = new UpdateDeployDto(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), true);
+            var dto = new UpdateDeployDto(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(),It.IsAny<string>(), true);
             var command = new UpdateDeploy(It.IsAny<int>(), It.IsAny<int>(), dto);
             var handler = new UpdateDeployHandler(_projectRepositoryMock.Object, _versionConverterMock.Object);
 
@@ -72,7 +72,7 @@ namespace DeployApp.UnitTests.UpdateCommandHandlers
             };
             _projectRepositoryMock.Setup(p => p.GetProjectWithDeploysByIdAsync(project.Id)).ReturnsAsync(project);
 
-            var dto = new UpdateDeployDto(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), true);
+            var dto = new UpdateDeployDto(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(),It.IsAny<string>(), true);
             var command = new UpdateDeploy(project.Id, deployId, dto);
             var handler = new UpdateDeployHandler(_projectRepositoryMock.Object, _versionConverterMock.Object);
 
@@ -101,7 +101,7 @@ namespace DeployApp.UnitTests.UpdateCommandHandlers
             _projectRepositoryMock.Setup(p => p.GetProjectWithDeploysByIdAsync(project.Id)).ReturnsAsync(project);
             _versionConverterMock.Setup(v => v.VersionToVersionString(1, 0, 0)).Returns(versionString);
 
-            var dto = new UpdateDeployDto(versionString, It.IsAny<DateTime>(), It.IsAny<DateTime>(), true);
+            var dto = new UpdateDeployDto(versionString, It.IsAny<DateTime>(), It.IsAny<DateTime>(),It.IsAny<string>(), true);
             var command = new UpdateDeploy(project.Id, deployId, dto);
             var handler = new UpdateDeployHandler(_projectRepositoryMock.Object, _versionConverterMock.Object);
 
