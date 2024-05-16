@@ -18,5 +18,13 @@ namespace DeployApp.Api
             => configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{Environment.MachineName}.json", optional: true, reloadOnChange: true);
 
+        public static IServiceCollection AddCorsPolicy(this IServiceCollection services)
+            => services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontEnd",
+                    builder => builder.WithOrigins("http://localhost:4200")
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+            });
     }
 }
