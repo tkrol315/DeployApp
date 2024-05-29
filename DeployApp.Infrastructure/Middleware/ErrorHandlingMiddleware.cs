@@ -21,7 +21,9 @@ namespace DeployApp.Infrastructure.Middleware
                 context.Response.Headers.Add("content-type", "application/json");
                 context.Response.StatusCode = ex.StatusCode;
                 var json = JsonSerializer.Serialize(new { ErrorCode = ex.StatusCode, Message = ex.Message });
-                Log.Logger.Error("ErrorCode: {statusCode} | ErrorMessage: {errorMessage}", ex.StatusCode, ex.Message);
+                Log.Logger.Error(
+                    "ErrorCode: {statusCode} | ErrorMessage: {errorMessage} | InnerErrorMessage: {innerErrorMessage}"
+                    , ex.StatusCode, ex.Message, (ex.InnerException != null ? ex.InnerException.Message : "NULL"));
                 await context.Response.WriteAsync(json);
             }
             catch(Exception ex)
@@ -29,7 +31,9 @@ namespace DeployApp.Infrastructure.Middleware
                 context.Response.Headers.Add("content-type", "application/json");
                 context.Response.StatusCode = 500;
                 var json = JsonSerializer.Serialize(new { ErrorCode = 500, Message ="Something went wrong" });
-                Log.Logger.Error("ErrorCode: {statusCode} | ErrorMessage: {errorMessage}", 500, ex.Message);
+                Log.Logger.Error(
+                    "ErrorCode: {statusCode} | ErrorMessage: {errorMessage} | InnerErrorMessage: {innerErrorMessage}"
+                    , 500, ex.Message, (ex.InnerException != null ? ex.InnerException.Message : "NULL"));
                 await context.Response.WriteAsync(json);
             }
         }

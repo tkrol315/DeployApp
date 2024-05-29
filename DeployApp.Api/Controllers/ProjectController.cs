@@ -18,8 +18,9 @@ namespace DeployApp.Api.Controllers
             _mediator = mediator;
         }
         [HttpGet]
-        public async Task<ActionResult<List<GetTagDto>>> GetAll([FromRoute] GetProjectsAsDtos query)
+        public async Task<ActionResult<List<GetTagDto>>> GetAll([FromQuery] ProjectFilterDto filter)
         {
+            var query = new GetProjectsAsDtos(filter);
             var projects = await _mediator.Send(query);
             return Ok(projects);
         }
@@ -32,8 +33,9 @@ namespace DeployApp.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProject([FromBody] CreateProject command)
+        public async Task<IActionResult> CreateProject([FromBody] CreateProjectDto dto)
         {
+            var command = new CreateProject(dto);
             var id = await _mediator.Send(command);
             return CreatedAtAction(nameof(Get), new { project_id = id }, null);
         }
